@@ -1,0 +1,89 @@
+-- ------------------------------------------
+--
+--   split-4326.sql
+--
+-- ------------------------------------------
+
+\t
+
+\set ON_ERROR_STOP 'on'
+
+\timing on
+
+SELECT now() AS start_time \gset
+
+-- ------------------------------------------
+
+SELECT now() AS last_time \gset
+
+DROP TABLE IF EXISTS land_polygons_grid_4326;
+
+CREATE TABLE land_polygons_grid_4326 (
+    id SERIAL PRIMARY KEY,
+    x INTEGER,
+    y INTEGER,
+    geom GEOMETRY(POLYGON, 4326)
+);
+
+INSERT INTO land_polygons_grid_4326 (x, y, geom)
+    SELECT x, y, ST_MakeValid((ST_Dump(geom)).geom)
+        FROM land_polygons_grid_4326_union;
+
+CREATE INDEX land_polygons_grid_4326_geom_idx ON land_polygons_grid_4326 USING GIST (geom);
+
+SELECT 'final land polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
+
+-- ------------------------------------------
+
+SELECT now() AS last_time \gset
+
+DROP TABLE IF EXISTS water_polygons_grid_4326;
+
+CREATE TABLE water_polygons_grid_4326 (
+    id SERIAL PRIMARY KEY,
+    x INTEGER,
+    y INTEGER,
+    geom GEOMETRY(POLYGON, 4326)
+);
+
+INSERT INTO water_polygons_grid_4326 (x, y, geom)
+    SELECT g.x, g.y, ST_MakeValid((ST_Dump(ST_Difference(g.geom, p.geom))).geom)
+        FROM grid_4326 g, land_polygons_grid_4326_union p
+            WHERE g.x = p.x AND g.y = p.y;
+
+-- Delete some tiny slivers along the antimeridian created as a side-effect of our code
+DELETE FROM water_polygons_grid_4326
+    WHERE ST_Contains(ST_MakeEnvelope(-180.0, -90.0, -179.9998, -77.0, 4326), geom)
+       OR ST_Contains(ST_MakeEnvelope(179.9998, -90.0, 180.0, -77.0, 4326), geom);
+
+INSERT INTO water_polygons_grid_4326 (x, y, geom)
+    SELECT x, y, geom
+        FROM grid_4326
+            WHERE ARRAY[x, y] NOT IN (SELECT DISTINCT ARRAY[x, y] FROM land_polygons_grid_4326);
+
+CREATE INDEX water_polygons_grid_4326_geom_idx ON water_polygons_grid_4326 USING GIST (geom);
+
+SELECT 'create water polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
+
+-- ------------------------------------------
+
+SELECT now() AS last_time \gset
+
+DROP TABLE IF EXISTS coastlines_4326;
+
+CREATE TABLE coastlines_4326 (
+    id SERIAL PRIMARY KEY,
+    geom GEOMETRY(LINESTRING, 4326)
+);
+
+INSERT INTO coastlines_4326 (geom)
+    SELECT ST_Subdivide((ST_Dump(ST_Boundary(wkb_geometry))).geom, 1000)
+        FROM land_polygons_4326;
+
+SELECT 'coastlines from polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
+
+-- ------------------------------------------
+
+DROP TABLE land_polygons_grid_4326_union;
+
+-- ------------------------------------------

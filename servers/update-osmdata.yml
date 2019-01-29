@@ -1,0 +1,38 @@
+#cloud-config
+
+apt:
+    sources:
+        backports:
+            source: "deb http://ftp.debian.org/debian stretch-backports main"
+
+package_update: true
+
+package_upgrade: true
+
+packages:
+    - [osmcoastline, '2.2.1-1~bpo9+1']
+    - [osmium-tool, '1.10.0-1~bpo9+1']
+    - [python3-pyosmium, '2.15.0-1~bpo9+1']
+    - bc
+    - gdal-bin
+    - git
+    - jq
+    - postgis
+    - postgresql-9.6
+    - postgresql-9.6-postgis-2.3
+    - postgresql-9.6-postgis-2.3-scripts
+    - python-gdal
+    - rsync
+    - spatialite-bin
+    - sqlite3
+    - unzip
+    - zip
+    - zsh
+
+mounts:
+    - [ sdb, /mnt ]
+
+runcmd:
+    - [ systemctl, stop, postgresql ]
+    - [ systemctl, disable, postgresql ]
+

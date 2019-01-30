@@ -10,9 +10,6 @@ package_update: true
 package_upgrade: true
 
 packages:
-    - [osmcoastline, '2.2.1-1~bpo9+1']
-    - [osmium-tool, '1.10.0-1~bpo9+1']
-    - [python3-pyosmium, '2.15.0-1~bpo9+1']
     - bc
     - gdal-bin
     - git
@@ -22,7 +19,6 @@ packages:
     - sqlite3
     - unzip
     - zip
-    - zsh
 
 mounts:
     - [ sdb, /mnt ]

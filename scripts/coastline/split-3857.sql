@@ -77,8 +77,8 @@ CREATE TABLE simplified_land_polygons (
 );
 
 INSERT INTO simplified_land_polygons (id, geom)
-    SELECT ogc_fid, ST_SimplifyPreserveTopology(wkb_geometry, 300)
-        FROM land_polygons_3857 WHERE ST_Area(wkb_geometry) > 300000;
+    SELECT id, ST_SimplifyPreserveTopology(geom, 300)
+        FROM land_polygons_3857 WHERE ST_Area(geom) > 300000;
 
 SELECT 'simplified land polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
 
@@ -94,7 +94,7 @@ CREATE TABLE coastlines_3857 (
 );
 
 INSERT INTO coastlines_3857 (geom)
-    SELECT ST_Subdivide((ST_Dump(ST_Boundary(wkb_geometry))).geom, 1000)
+    SELECT ST_Subdivide((ST_Dump(ST_Boundary(geom))).geom, 1000)
         FROM land_polygons_3857;
 
 SELECT 'coastlines from polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');

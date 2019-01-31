@@ -77,7 +77,7 @@ CREATE TABLE coastlines_4326 (
 );
 
 INSERT INTO coastlines_4326 (geom)
-    SELECT ST_Subdivide((ST_Dump(ST_Boundary(wkb_geometry))).geom, 1000)
+    SELECT ST_Subdivide((ST_Dump(ST_Boundary(geom))).geom, 1000)
         FROM land_polygons_4326;
 
 SELECT 'coastlines from polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');

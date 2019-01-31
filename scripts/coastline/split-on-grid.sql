@@ -5,7 +5,6 @@
 --   variables:
 --      srid: 4326 or 3857
 --      input_table: table with input data to be split
---      input_field: column name in input table
 --      output_table: name of output table
 --
 -- ------------------------------------------
@@ -34,7 +33,7 @@ CREATE TABLE polygons_sub (
 );
 
 INSERT INTO polygons_sub (geom)
-    SELECT ST_Multi(ST_Subdivide(:input_field, 1000))
+    SELECT ST_Multi(ST_Subdivide(geom, 1000))
         FROM :input_table;
 
 CREATE INDEX polygons_sub_geom_idx ON polygons_sub USING GIST (geom);

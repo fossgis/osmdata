@@ -19,16 +19,18 @@ srid=$1
 
 psql -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 
-time ogr2ogr -f "PostgreSQL" PG:"dbname=${PGDATABASE} user=${PGUSER}" -overwrite -nln land_polygons_${srid} $DATADIR/coastlines-complete-${srid}.db land_polygons
+time ogr2ogr -f "PostgreSQL" PG:"dbname=${PGDATABASE} user=${PGUSER}" \
+    -overwrite -lco GEOMETRY_NAME=geom -lco FID=id -nln land_polygons_${srid} \
+    $DATADIR/coastlines-complete-${srid}.db land_polygons
 
 time psql -f $BIN/create-grid-${srid}.sql
 
-time psql -f $BIN/split-on-grid.sql --set=srid=${srid} --set=input_table=land_polygons_${srid} --set=input_field=wkb_geometry --set=output_table=land_polygons_grid_${srid}_union
+time psql -f $BIN/split-on-grid.sql --set=srid=${srid} --set=input_table=land_polygons_${srid} --set=output_table=land_polygons_grid_${srid}_union
 
 time psql -f $BIN/split-${srid}.sql
 
 if [ "$srid" = "3857" ]; then
-    time psql -f $BIN/split-on-grid.sql --set=srid=3857 --set=input_table=simplified_land_polygons --set=input_field=geom --set=output_table=land_polygons_grid_3857_union
+    time psql -f $BIN/split-on-grid.sql --set=srid=3857 --set=input_table=simplified_land_polygons --set=output_table=land_polygons_grid_3857_union
     time psql -f $BIN/split-3857-post.sql
 fi
 

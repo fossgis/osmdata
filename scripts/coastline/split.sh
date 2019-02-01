@@ -41,7 +41,7 @@ create_shape() {
     local layer=$4
 
     mkdir -p $dir
-    ogr2ogr -f "ESRI Shapefile" $dir -select geom -nln $shape_layer -overwrite "$in" $layer
+    ogr2ogr -f "ESRI Shapefile" $dir -nln $shape_layer -overwrite "$in" $layer
 
     echo "UTF-8" >$dir/$2.cpg
 }

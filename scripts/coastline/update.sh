@@ -145,8 +145,10 @@ pg_run_split() {
                   -o maintenance_work_mem=100MB \
                   -o checkpoint_timeout=15min \
                   -o checkpoint_completion_target=0.9 \
-                  -o max_wal_size=1GB \
+                  -o max_wal_size=2GB \
                   -o min_wal_size=80MB \
+                  -o fsync=off \
+                  -o synchronous_commit=off \
                   $BIN/split.sh $srid
 }
 

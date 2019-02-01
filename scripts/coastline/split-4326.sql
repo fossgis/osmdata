@@ -25,6 +25,8 @@ CREATE TABLE land_polygons_grid_4326 (
     geom GEOMETRY(POLYGON, 4326)
 );
 
+ALTER TABLE land_polygons_grid_4326 ALTER COLUMN geom SET STORAGE EXTERNAL;
+
 INSERT INTO land_polygons_grid_4326 (x, y, geom)
     SELECT x, y, ST_MakeValid((ST_Dump(geom)).geom)
         FROM land_polygons_grid_4326_union;
@@ -45,6 +47,8 @@ CREATE TABLE water_polygons_grid_4326 (
     y INTEGER,
     geom GEOMETRY(POLYGON, 4326)
 );
+
+ALTER TABLE water_polygons_grid_4326 ALTER COLUMN geom SET STORAGE EXTERNAL;
 
 INSERT INTO water_polygons_grid_4326 (x, y, geom)
     SELECT g.x, g.y, ST_MakeValid((ST_Dump(ST_Difference(g.geom, p.geom))).geom)

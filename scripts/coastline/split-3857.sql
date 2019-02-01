@@ -25,6 +25,8 @@ CREATE TABLE land_polygons_grid_3857 (
     geom GEOMETRY(POLYGON, 3857)
 );
 
+ALTER TABLE land_polygons_grid_3857 ALTER COLUMN geom SET STORAGE EXTERNAL;
+
 INSERT INTO land_polygons_grid_3857 (x, y, geom)
     SELECT x, y, ST_MakeValid((ST_Dump(geom)).geom)
         FROM land_polygons_grid_3857_union;
@@ -45,6 +47,8 @@ CREATE TABLE water_polygons_grid_3857 (
     y INTEGER,
     geom GEOMETRY(POLYGON, 3857)
 );
+
+ALTER TABLE water_polygons_grid_3857 ALTER COLUMN geom SET STORAGE EXTERNAL;
 
 INSERT INTO water_polygons_grid_3857 (x, y, geom)
     SELECT g.x, g.y, ST_MakeValid((ST_Dump(ST_Difference(g.geom, p.geom))).geom)
@@ -75,6 +79,8 @@ CREATE TABLE simplified_land_polygons (
     id SERIAL PRIMARY KEY,
     geom GEOMETRY(POLYGON, 3857)
 );
+
+ALTER TABLE simplified_land_polygons ALTER COLUMN geom SET STORAGE EXTERNAL;
 
 INSERT INTO simplified_land_polygons (id, geom)
     SELECT id, ST_SimplifyPreserveTopology(geom, 300)

@@ -25,6 +25,8 @@ CREATE TABLE simplified_water_polygons (
     geom GEOMETRY(POLYGON, 3857)
 );
 
+ALTER TABLE simplified_water_polygons ALTER COLUMN geom SET STORAGE EXTERNAL;
+
 INSERT INTO simplified_water_polygons (x, y, geom)
     SELECT g.x, g.y, ST_MakeValid((ST_Dump(ST_Difference(g.geom, p.geom))).geom)
         FROM grid_3857 g, land_polygons_grid_3857_union p

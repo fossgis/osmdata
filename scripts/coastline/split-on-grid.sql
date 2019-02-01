@@ -32,6 +32,8 @@ CREATE TABLE polygons_sub (
     geom GEOMETRY(MULTIPOLYGON, :srid)
 );
 
+ALTER TABLE polygons_sub ALTER COLUMN geom SET STORAGE EXTERNAL;
+
 INSERT INTO polygons_sub (geom)
     SELECT ST_Multi(ST_Subdivide(geom, 1000))
         FROM :input_table;
@@ -52,6 +54,8 @@ CREATE TABLE polygons_grid_tmp (
     y INTEGER,
     geom GEOMETRY(MULTIPOLYGON, :srid)
 );
+
+ALTER TABLE polygons_grid_tmp ALTER COLUMN geom SET STORAGE EXTERNAL;
 
 INSERT INTO polygons_grid_tmp (x, y, geom)
     SELECT g.x, g.y, ST_CollectionExtract(ST_Multi(ST_Intersection(p.geom, g.geom)), 3)
@@ -75,6 +79,8 @@ CREATE TABLE polygons_grid_union (
     y INTEGER,
     geom GEOMETRY(MULTIPOLYGON, :srid)
 );
+
+ALTER TABLE polygons_grid_union ALTER COLUMN geom SET STORAGE EXTERNAL;
 
 INSERT INTO polygons_grid_union (x, y, geom)
     SELECT x, y, ST_Multi(ST_Union(geom))

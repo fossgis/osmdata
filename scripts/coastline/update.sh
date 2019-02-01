@@ -94,13 +94,29 @@ date $iso_date
 #
 #------------------------------------------------------------------------------
 
-run_osmcoastline() {
+run_osmcoastline_lines() {
+    local srid=$1
+    local file=coastlines-split-$srid
+
+    rm -f $DATADIR/$file.db.new
+
+    osmcoastline --verbose --overwrite --no-index \
+                 --output-lines --output-polygons=none \
+                 -o $DATADIR/$file.db.new \
+                 --srs=$srid --max-points=1000 --bbox-overlap=0 \
+                 $COASTLINES \
+                 && true
+
+    mv $DATADIR/$file.db.new $DATADIR/$file.db
+}
+
+run_osmcoastline_polygons() {
     local srid=$1
     local file=coastlines-complete-$srid
 
     rm -f $DATADIR/$file.db.new
 
-    osmcoastline --verbose --overwrite --no-index --output-lines \
+    osmcoastline --verbose --overwrite --no-index \
                  -o $DATADIR/$file.db.new \
                  --srs=$srid --max-points=0 --bbox-overlap=0 \
                  $COASTLINES \
@@ -109,9 +125,11 @@ run_osmcoastline() {
     mv $DATADIR/$file.db.new $DATADIR/$file.db
 }
 
-run_osmcoastline 4326
+run_osmcoastline_lines 4326
+run_osmcoastline_polygons 4326
 
-run_osmcoastline 3857
+run_osmcoastline_lines 3857
+run_osmcoastline_polygons 3857
 
 ### This takes longer than recreating 3857 coastlines from source
 #rm -f $DATADIR/coastlines-complete-3857.db

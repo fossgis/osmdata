@@ -67,23 +67,6 @@ SELECT 'create water polygons', date_trunc('second', now() - :'last_time'), date
 
 -- ------------------------------------------
 
-SELECT now() AS last_time \gset
-
-DROP TABLE IF EXISTS coastlines_4326;
-
-CREATE TABLE coastlines_4326 (
-    id SERIAL PRIMARY KEY,
-    geom GEOMETRY(LINESTRING, 4326)
-);
-
-INSERT INTO coastlines_4326 (geom)
-    SELECT ST_Subdivide((ST_Dump(ST_Boundary(geom))).geom, 1000)
-        FROM land_polygons_4326;
-
-SELECT 'coastlines from polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
-
--- ------------------------------------------
-
 DROP TABLE land_polygons_grid_4326_union;
 
 -- ------------------------------------------

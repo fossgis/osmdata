@@ -84,23 +84,6 @@ SELECT 'simplified land polygons', date_trunc('second', now() - :'last_time'), d
 
 -- ------------------------------------------
 
-SELECT now() AS last_time \gset
-
-DROP TABLE IF EXISTS coastlines_3857;
-
-CREATE TABLE coastlines_3857 (
-    id SERIAL PRIMARY KEY,
-    geom GEOMETRY(LINESTRING, 3857)
-);
-
-INSERT INTO coastlines_3857 (geom)
-    SELECT ST_Subdivide((ST_Dump(ST_Boundary(geom))).geom, 1000)
-        FROM land_polygons_3857;
-
-SELECT 'coastlines from polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
-
--- ------------------------------------------
-
 DROP TABLE land_polygons_grid_3857_union;
 
 -- ------------------------------------------

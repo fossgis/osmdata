@@ -51,8 +51,8 @@ create_shape_from_pg() {
 }
 
 create_shape land-polygons-complete-${srid} land_polygons $DATADIR/coastlines-complete-${srid}.db land_polygons
+create_shape coastlines-split-${srid} lines $DATADIR/coastlines-split-${srid}.db lines
 
-create_shape_from_pg coastlines-split-${srid} lines coastlines_${srid}
 create_shape_from_pg land-polygons-split-${srid} land_polygons land_polygons_grid_${srid}
 create_shape_from_pg water-polygons-split-${srid} water_polygons water_polygons_grid_${srid}
 

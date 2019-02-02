@@ -41,7 +41,7 @@ create_shape() {
     local layer=$4
 
     mkdir -p $dir
-    ogr2ogr -f "ESRI Shapefile" $dir -nln $shape_layer -overwrite "$in" $layer
+    time ogr2ogr -f "ESRI Shapefile" $dir -nln $shape_layer -overwrite "$in" $layer
 
     echo "UTF-8" >$dir/$2.cpg
 }
@@ -53,8 +53,10 @@ create_shape_from_pg() {
 create_shape land-polygons-complete-${srid} land_polygons $DATADIR/coastlines-complete-${srid}.db land_polygons
 create_shape coastlines-split-${srid} lines $DATADIR/coastlines-split-${srid}.db lines
 
-create_shape_from_pg land-polygons-split-${srid} land_polygons land_polygons_grid_${srid}
-create_shape_from_pg water-polygons-split-${srid} water_polygons water_polygons_grid_${srid}
+for t in land water; do
+    psql -c "ALTER TABLE ${t}_polygons_grid_${srid} DROP COLUMN x, DROP COLUMN y;"
+    create_shape_from_pg ${t}-polygons-split-${srid} ${t}_polygons ${t}_polygons_grid_${srid}
+done
 
 if [ "$srid" = "3857" ]; then
     create_shape_from_pg simplified-land-polygons-split-${srid} simplified_land_polygons simplified_land_polygons

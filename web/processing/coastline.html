@@ -1,0 +1,49 @@
+---
+layout: default
+title: Coastline processing
+---
+
+<h1>Coastline processing</h1>
+
+
+<h2>The coastline in OSM</h2>
+
+<p>The coastline is handled somewhat differently than most other features in
+OSM. To mark it ways with the tag <tt>natural=coastline</tt> are used. Those
+ways need to connect end-to-end to form an unbroken line around every island
+and every continent. And the land always has to be on the left side, the water
+on the right side of those ways. For details see the
+<a class="extlink"
+href="https://wiki.openstreetmap.org/wiki/Tag:natural=coastline">OSM wiki</a>.
+
+
+<h2>Processing with OSMCoastline</h2>
+
+<p>The world is big and all the coastlines together are very very long. So
+there is a lot of data. And chances are that at any moment someone somewhere
+is updating the coastline. And that is not always easy to do, and errors happen.
+But we need one unbroken line to form proper (multi)polygons of land masses
+(or the sea). Specifically for this task we have developed the <a class="extlink"
+href="https://osmcode.org/osmcoastline/">OSMCoastline</a> program. It assembles
+all the data, applies some fixes if necessary and creates the data you see on
+this site. For more of the inner workings refer to the OSMCoastline
+documentation or have a look at <a class="extlink"
+href="https://blog.jochentopf.com/tags-osmcoastline.html">these blog
+posts</a>. OSMCoastline has many parameters and options and you can run it
+yourself to create specialized output if what you see on this site is not
+enough for your use case.</p>
+
+
+<h2>Finding and fixing errors</h2>
+
+<p>As the OSMCoastline program runs to create the coastline, it will report any
+errors in the coastline it finds. This information is then sent on to the
+<a class="extlink"
+href="https://tools.geofabrik.de/osmi/?view=coastline">Coastline view of the
+Geofabrik OSM Inspector</a>. You can help fixing the OSM data by checking
+that site and correcting any errors you see. Thanks to all the OSM users who
+do this!</p>
+
+<p class="tip">If you can't find an error shown by the OSM Inspector in your
+OSM editor, chances are somebody else was faster and has already fixed it!</p>
+

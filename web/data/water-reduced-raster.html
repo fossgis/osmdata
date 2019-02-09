@@ -1,0 +1,71 @@
+---
+layout: default
+title: Reduced waterbodies as raster masks
+---
+
+<div class="titleimg" style="background-image: url(/img/data-water-reduced-raster.png);">
+</div>
+
+<h1>Reduced waterbodies as raster masks</h1>
+
+<p>Raster files representing the global waterbodies reduced in data volume for very
+efficient plain color rendering at low zoom levels.</p>
+
+<h2>Description</h2>
+
+<p>These files are generated from the OpenStreetMap data of inland surface water and the
+<a href="/data/water-polygons.html">coastline water polygons</a>.  The
+<a href="/processing/water.html">process used to generate these files</a> produces both a raster
+and a polygon vector representation.  Here you can find the raster version, the polygon
+files are available on a <a href="/data/water-reduced-polygons.html">separate page</a>.</p>
+
+<p>This process is specific to the map projection used as well as the rendering resolution -
+currently this is available only in <a href="/info/projections.html#mercator">Mercator</a> projection
+and for Mercator zoom levels 0 to 6 at a resolution of 256&times;256 pixel per tile.</p>
+
+<p>The raster mask is made available as a single channel grayscale image with 8 bit per pixel
+and covers the whole map area.  Internally it stores the data in tiled form (GDAL creation
+option TILED=YES) for efficient access to subsets of the data.</p>
+
+<h2>Variants</h2>
+
+<p>Separate raster files are produced for different classes of surface water.</p>
+
+<ul>
+    <li>An ocean mask representing areas mapped as coastline in OpenStreetMap.</li>
+    <li>A lakes mask representing the lakes and other bodies of standing water.</li>
+    <li>A river mask representing river and artificial canal areas.</li>
+</ul>
+
+<p>The lakes and river masks are not suited to be rendered alone without the ocean
+data.  Oceans and lakes together can however be used without the rivers if desired.</p>
+
+<h2>Using this data</h2>
+
+<p>To use this data in an OpenStreetMap based map download the raster files below, include them
+as separate layers in your map style, each file specifically for the zoom level it is meant for
+and limit use of the normal full resolution waterbody and ocean polygon data to the higher zoom
+levels.  Not all rendering engines support using raster masks in rendering and those which do
+(like Mapnik with the
+<a class="extlink" href="https://github.com/mapnik/mapnik/wiki/RasterColorizer">RasterColorizer</a>
+feature) are usually limited in styling options.  For more flexibility you can
+<a href="/data/water-reduced-polygons.html">use the polygon version</a>.  You should render the lakes
+above the rivers and the ocean above the lakes.</p>
+
+
+<h2>See also</h2>
+
+<a href="/data/water-reduced-polygons.html">Reduced waterbodies as polygons</a> &middot;
+<a href="/data/generalized-coastlines.html">Generalized coastline data</a> &middot;
+<a href="/data/water-polygons.html">Ocean polygons</a>
+
+<h2>Download</h2>
+
+<table class="download">
+<%= download('ocean-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'Ocean raster masks') %>
+<%= download('lakes-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'Lake raster masks') %>
+<%= download('river-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'River raster masks') %>
+</table>
+
+{% include license-odbl.html %}
+

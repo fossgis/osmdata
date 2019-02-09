@@ -1,0 +1,58 @@
+---
+layout: default
+title: Waterbody reduction
+---
+
+<h1>Waterbody reduction</h1>
+
+<p>Inland waterbodies in OpenStreetMap are mapped with a variety of tags
+producing a fairly large volume of data - more then 5GB of data in usual GIS
+formats for the polygon data alone. Since there is no objective measure of
+importance for these different features there is no easy way to filter from
+this large volume of data only those features that are relevant for rendering
+maps at coarse scales.</p>
+
+<p>Therefore most OpenStreetMap based maps render water at the low zoom levels
+either from other data sources or using questionable filtering techniques that
+often lead to low quality results.</p>
+
+<p>The reduced waterbody data we offer here is generated from the full set of
+waterbody data in OpenStreetMap and reduces this in volume without subjective
+decisions that affect the rendering results in undesirable ways. This is done
+by rasterizing the data at high resolution and generating a supersampled low
+resolution raster mask from it. This raster mask is made available as raster
+images and converted back to a very compact polygon representation which is
+made available as well.</p>
+
+<p>This approach comes with a number of limitations that need to be kept in
+mind when using this data:</p>
+
+<ul>
+    <li>The files are only suited for rendering in the resolution they are
+    produced for. Rendering either in a higher or lower resolution will
+    produce suboptimal results.</li>
+    <li>The polygon version does not have any topological similarity with the
+    original data as you might expect. The rivers for example do not form a
+    continuous geometry.</li>
+    <li>The styling you can use with these files is somewhat limited. You cannot
+    render the polygons with an outline for example. Using fill patterns or edge
+    color gradients should however work.</li>
+    <li>The process does not perform any
+    <a href="/processing/generalization.html">geometric generalization</a>.</li>
+</ul>
+
+<p>Technically the reduction process is implemented with <a
+href="https://osmcode.org/libosmium/">Osmium</a> and <a
+href="https://www.gdal.org/">GDAL</a>. The polygon representation is produced
+using <a href="https://github.com/imagico/gray2vec">a custom vectorization
+tool</a>.</p>
+
+<p><a href="http://www.imagico.de/map/polygon_rendering.php">A more detailed
+background text</a> provides additional information.</p>
+
+<h2>Rendering example</h2>
+
+<p>Here a rendering example derived from the OpenStreetMap standard style.</p>
+
+<img class="left frame" src="/img/water_carto.png" width="640" height="420" title="rendering of reduced waterbody data" />
+

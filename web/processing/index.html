@@ -1,0 +1,52 @@
+---
+layout: default
+title: Processing
+---
+
+<h1>Processing</h1>
+
+<p>OpenStreetMap data in its raw form is often hard to use. The goal of this
+site is to give you access to pre-processed OSM data in a convenient form. But
+we can not create the data in every form that might be needed, so we give you
+the background information and the software to do it yourself.</p>
+
+<a href="/processing/coastline.html" class="option">
+    <h2>Coastlines</h2>
+    <p>Coastlines are recorded in OSM using the tag <tt>natural=coastline</tt>.
+    Our coastline processing finds all ways with that tag and stitches them
+    together while correcting small errors.</p>
+</a>
+
+<a href="/processing/icesheet.html" class="option">
+    <h2>Icesheet</h2>
+    <p>Antarctic icesheets are handled specially: Instead of tagging the ice
+    sheets, the area in the Antarctic that does <i>not</i> contain any ice is
+    tagged. Our processing takes this into account when creating icesheet
+    outlines and polygons.</p>
+</a>
+
+{% comment %}
+
+<a href="/processing/generalization.html" class="option">
+    <h2>Generalization</h2>
+    <p>OpenStreetMap data is amazingly detailed. But for small scale maps (small
+    zoom levels) this detail is not needed, or worse, cluttering up the map. Our
+    generalized data removes the detail for nicer looking overview maps.</p>
+</a>
+
+<a href="/processing/water.html" class="option">
+    <h2>Waterbodies</h2>
+    <p>Waterbody data in OpenStreetMap has a very large volume so for rendering
+    small scale maps (small zoom levels) we offer a reduced, more compact version
+    of this that allows rendering the global waterbodies in an efficient way
+    at these scales.</p>
+</a>
+
+{% endcomment %}
+
+<a href="/processing/software.html" class="option">
+    <h2>Software</h2>
+    <p>All the software we base our processing on is Open Source. Feel free
+    to use it, learn from it, and change it.</p>
+</a>
+

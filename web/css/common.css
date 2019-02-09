@@ -1,0 +1,383 @@
+
+html {
+    height: calc(100% - 8px);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Trebuchet MS","Droid Sans",Helvetica,Arial,sans-serif;
+    background-color: #f0f0f0;
+    color: #202020;
+    height: 100%;
+}
+
+h1, h2 {
+    margin: 10px 0 16px 0;
+    line-height: 130%;
+}
+
+p {
+    margin: 8px 0;
+}
+
+ul {
+    padding-left: 18px;
+}
+
+a[href] {
+    color: #0d41a9;
+}
+
+table.small td {
+    padding-right: 20px;
+}
+
+/* == layout == */
+
+div#wrap {
+    position: relative;
+    min-height: 98%;
+    background-color: #ffffff;
+}
+
+@media all and (min-width: 1020px) and (min-device-width: 1020px) {
+
+    div#wrap {
+        margin: 8px auto;
+        max-width: 1000px;
+        border: 1px solid #f0f0f0;
+        border-radius: 3px;
+        box-shadow: 0 0 3px 3px rgba(0,0,0,0.5);
+    }
+
+}
+
+div.invers {
+    color: #e0e0e0;
+    background-color: #2c6843;
+}
+
+div.invers a {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+
+div.invers a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+div#header {
+    background-color: #2c6843;
+    /*background-image:url("/img/header_osmdata.png");*/
+    background-position: 50% bottom;
+    background-repeat: no-repeat;
+    padding: 10px 14px 18px 14px;
+}
+
+div#header #title {
+    font-size: 150%;
+    font-weight: bold;
+    margin-left: -1px;
+}
+
+div#header #title:hover {
+    color: #ffffff;
+    text-decoration: none;
+    text-shadow: 0 0 3px rgba(255,255,255,0.3);
+}
+
+@media all and (min-width: 1020px) and (min-device-width: 1020px) {
+    div#header #title {
+        font-size: 190%;
+    }
+}
+
+div#header #title .large {
+    font-size: 125%;
+}
+
+span#last-update {
+    float: right;
+    padding: 4px 14px;
+}
+
+@media all and (min-width: 1020px) and (min-device-width: 1020px) {
+
+    div#footer {
+        position: relative;
+        margin: -34px auto 8px auto;
+        max-width: 1000px;
+    }
+
+}
+
+div#footer-inner {
+    text-align: right;
+    font-size: 80%;
+    padding: 5px 14px;
+}
+
+/* == menu == */
+
+#menu {
+    border-top: 1px solid #f0f0f0;
+    background-color: #2c6843;
+    font-weight: bold;
+    font-size: 95%;
+}
+
+#menu ul {
+    margin: 4px;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    display: inline-table;
+}
+
+#menu ul:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+#menu ul li {
+    float: left;
+}
+
+#menu ul li:hover > ul {
+    display: block;
+}
+
+#menu a {
+    padding: 6px 10px;
+    text-decoration: none;
+}
+
+#menu a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 3px rgba(255,255,255,0.3);
+}
+
+#menu ul ul {
+    display: none;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid #ffffff;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-color: #2c6843;
+    z-index: 1000;
+}
+
+#menu ul ul li {
+    float: none;
+    position: relative;
+    padding: 6px 0;
+    text-align: left;
+}
+
+#menu ul ul li a {
+    border-right: none;
+    color: #e0e0e0;
+    text-shadow: none;
+    padding: 0 10px;
+}
+
+#menu ul ul li a:hover {
+    color: #ffffff;
+}
+
+#menu img {
+    position: absolute;
+    top: 2px;
+}
+
+#menu ul ul li img {
+    position: relative;
+    top: 2px;
+}
+
+/* == main == */
+
+div#main {
+    background-color: #ffffff;
+    max-width: 1000px;
+    height: 100%;
+    padding: 1px 0 20px 0;
+}
+
+#content {
+    line-height: 130%;
+    padding: 4px 14px 12px;
+}
+
+/* ==== */
+
+.right {
+    float:right;
+    margin: 0 0 3px 5px;
+}
+
+/* == data pages == */
+
+div.titleimg {
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+    height: 165px;
+    margin-top: 12px;
+}
+
+table.download {
+    border-collapse: collapse;
+    border-spacing: 20px;
+    width: 100%;
+}
+
+table.download tr:hover {
+    background-color: #f0f0f0;
+}
+
+table.download td {
+    padding: 10px 0;
+    text-align: left;
+    vertical-align: middle;
+}
+
+table.download td.left {
+    width: 8em;
+}
+
+table.download td.right {
+    float: none;
+}
+
+/* == internal page = */
+
+table.data {
+    border-collapse: collapse;
+    border-spacing: 8px;
+}
+
+table.data tr:hover {
+    background-color: #f0f0f0;
+}
+
+table.data th {
+    background-color: #f0f0f0;
+    text-align: left;
+}
+
+table.data td, table.data th {
+    padding: 4px 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* == button == */
+
+.btn {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #2c6843;
+    background-image: -moz-linear-gradient(top, #59834a, #2c6843);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#59834a), to(#2c6843));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#59834a', endColorstr='#2c6843');
+    background-repeat: repeat-x;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+    color: #f0f0f0 !important;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    display: inline-block;
+    line-height: normal;
+    padding: 5px 10px 6px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-position: 0 -5px;
+    color: #ffffff;
+}
+
+/* =========================== */
+
+.option {
+    display: block;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 3px;
+    min-height: 60px;
+}
+
+.option img {
+    float: left;
+    position: relative;
+    top: 5px;
+    border: 1px solid #808080;
+    border-radius: 3px;
+    margin-right: 20px;
+    height: 50px;
+}
+
+.option h2 {
+    margin: 0;
+    text-decoration: underline;
+}
+
+.option p {
+    color: #202020;
+}
+
+.option:hover {
+    background-color: #f0f0f0;
+}
+
+/* =========================== */
+
+.tip {
+    font-style: italic;
+}
+
+.tip::before {
+    content: '➡ ';
+}
+
+img.frame {
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+}
+
+/* == map == */
+
+div#map {
+    clear: both;
+    position: relative;
+    top: 10px;
+    height: 500px;
+    width: 100%;
+    border: 1px solid #a0a0a0;
+    border-radius: 3px;
+}
+
+div#controls {
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    padding: 6px;
+    width: 300px;
+    float: left;
+}
+
+div#controls input {
+    position: relative;
+    top: 5px;
+}
+
+/* =========================== */

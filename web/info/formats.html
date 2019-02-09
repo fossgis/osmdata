@@ -1,0 +1,41 @@
+---
+layout: default
+title: Information about data formats
+---
+
+<h1>Data formats</h1>
+
+<p>Most data available on this site currently uses the popular Shapefile
+format. Other formats might be added in the future.</p>
+
+<a id="shapefile"><h2>Shapefile</h2></a>
+
+<p>This is a popular format for GIS data. Each layer consists of a set of
+files. For easy download all the files are packed into a zip archive. The
+archive contains the following files:</p>
+
+<table class="small">
+    <tr><td><tt><i>LAYER</i>.shp</tt></td><td>Feature geometries</td></tr>
+    <tr><td><tt><i>LAYER</i>.shx</tt></td><td>Feature geometry index</td></tr>
+    <tr><td><tt><i>LAYER</i>.dbf</tt></td><td>Feature attributes</td></tr>
+    <tr><td><tt><i>LAYER</i>.prj</tt></td><td><a href="/info/projections.html">Projection used</a></td></tr>
+    <tr><td><tt><i>LAYER</i>.cpg</tt></td><td>Code page for character encoding</td></tr>
+    <tr><td><tt>README.txt</tt></td><td>Information about this layer</td></tr>
+</table>
+
+<p>All string attributes use the Unicode UTF-8 character encoding, the same as
+the OpenStreetMap data.</p>
+
+<p>See the <a class="extlink"
+href="https://en.wikipedia.org/wiki/Shapefile">Wikipedia</a> for
+more details about this format.</p>
+
+{% comment %}
+<a id="geotiff"><h2>GeoTIFF raster image</h2></a>
+
+<p>Raster data is currently made available in GeoTIFF format with Deflate compression.</p>
+
+<p>See the <a class="extlink" href="https://trac.osgeo.org/geotiff/">GeoTIFF standard page</a>
+for more details about this format.</p>
+
+{% endcomment %}

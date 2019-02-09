@@ -1,0 +1,23 @@
+---
+layout: default
+title: Coastline datasets
+---
+
+<h1>Coastline data sets</h1>
+
+<p>In OpenStreetMap the primary division of the earth surface into land and
+water is mapped through ways tagged with <tt>natural=coastline</tt>.  For
+rendering a map however you usually need land or water polygons representing
+continents and islands in the former or oceans in the latter case.</p>
+
+<p>Assembling these polygons from the coastline ways in OpenStreetMap is done
+with a specialized processing tool (OSMCoastline).  <a
+href="/processing/coastline.html">Learn more about the coastline
+processing...</a></p>
+
+<p>The results of this can be downloaded here.</p>
+
+{% include data/land-polygons.html %}
+{% include data/water-polygons.html %}
+{% include data/coastlines.html %}
+

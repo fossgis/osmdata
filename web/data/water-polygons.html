@@ -1,0 +1,58 @@
+---
+layout: default
+title: Water polygons
+---
+
+<div class="titleimg" style="background-image: url(/img/data-water-polygons.png);">
+</div>
+
+<h1>Water polygons</h1>
+
+<p>Polygons for oceans and seas. These polygons are split into smaller
+overlapping chunks that are easier and faster to work with.</p>
+
+<h2>Description</h2>
+
+<p>The data has been derived from OpenStreetMap ways tagged with
+<tt>natural=coastline</tt>. Ways are assembled into polygons and then
+split. Some errors in the OSM data are repaired in the process.
+<a href="/processing/coastline.html">Learn more about the coastline processing...</a></p>
+
+<p>This dataset only contains bodies of water bordered by ways tagged
+<tt>natural=coastline</tt>, it does not contain lakes, reservoirs, etc.
+tagged with <tt>natural=water</tt> etc.</p>
+
+<p>Where polygons have been split they overlap slightly to help avoiding
+rendering artefacts at the seams.</p>
+
+{% comment %}
+<p>This data contains all the detail available in OSM. For small scale maps
+(small zoom levels) it might be too detailed and therefore slow to use and
+not well readable.  For this purpose we also offer
+<a href="/data/generalized-coastlines.html">generalized coastline data</a>.</p>
+{% endcomment %}
+
+<h2>Variants</h2>
+
+<ul>
+    <li>The data is available in <a href="/info/projections.html#wgs84">WGS84</a>
+    and <a href="/info/projections.html#mercator">Mercator</a>
+    projection.</li>
+</ul>
+
+<h2>See also</h2>
+
+<a href="/data/land-polygons.html">Land polygons</a> &middot;
+<a href="/data/coastlines.html">Coastlines</a>
+
+<h2>Download</h2>
+
+<table class="download">
+{% include download file='water-polygons-split-4326.zip' format='Shapefile' proj='WGS84' desc='(Large polygons are split)' %}
+{% include download file='water-polygons-split-3857.zip' format='Shapefile' proj='Mercator' desc='(Large polygons are split)' %}
+{% include download file='simplified-water-polygons-complete-3857.zip' format='Shapefile' proj='Mercator' desc='(Simplified polygons, use for  zoom level 0-9)' %}
+</table>
+
+{% include license-odbl.html %}
+{% include notes-broken-coastline.html %}
+

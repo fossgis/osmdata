@@ -1,0 +1,60 @@
+---
+layout: default
+title: Generalization
+---
+
+<h1>Information on generalization</h1>
+
+<img class="right" src="/img/generalization_z0.png" width="256" height="256" title="Coastline rendering at z=0" />
+
+<p>Most OpenStreetMap-based maps are rendered from exactly the same data on all
+scales. This means that at low zoom levels there is usually way too much
+geometric detail which produces a lot of noise and blurriness in the results by
+rendering details that cannot be properly represented at the map scale and
+resolution used.</p>
+
+<p>The process of adapting the detailed map data as it has been surveyed to the
+target map scale and resolution is called <em>cartographic generalization</em>.
+This is neglected in most digital zoomable maps. Key to good quality
+generalization and ultimately clear and well readable maps is the elimination
+of unimportant details that cannot be properly shown and at the same time
+selection and emphasis of key elements. This is not to be confused with mere
+geometric simplification which is just one element of generalization and which
+is widely used in digital map production.</p>
+
+<h2>Generalized coastlines</h2>
+
+<p>OpenStreetMapData.com provides a generalized version of the
+<a href="/processing/coastline.html">OpenStreetMap coastlines</a> for use in web
+maps in Mercator projection.  The coastline is usually the most important
+element of maps at the lowest zoom levels so generalization in most important
+here.</p>
+
+<p>The technique used for that is a raster-based process implemented in the <a
+href="https://github.com/imagico/coastline_gen">coastline_gen</a> tool. It
+ensures that straits and land bridges are properly represented at the low
+resolutions. Different levels of generalization are produced for the different
+zoom levels up to z=8.</p>
+
+<p>
+<img class="left frame" src="/img/generalization_z6.png" width="154" height="173" title="Generalized coastline at z=6" />
+<img class="left frame" src="/img/generalization_z5.png" width="154" height="173" title="Generalized coastline at z=5" />
+<img class="left frame" src="/img/generalization_z4.png" width="154" height="173" title="Generalized coastline at z=4" />
+<img class="left frame" src="/img/generalization_z3.png" width="154" height="173" title="Generalized coastline at z=3" />
+</p>
+
+<p>In contrast to the original coastline data two further preprocessing steps exist:</p>
+
+<ul>
+<li>The lakes currently tagged <tt>natural=coastline</tt> have been removed.</li>
+<li>Some marine coastal water areas, primarily at the mouths of rivers, that are not included
+in the coastline in OpenStreetMap are added based on the <tt>maritime=yes</tt> tag.</li>
+</ul>
+
+<h2>Rendering example</h2>
+
+<p>Here an example of use of these coastlines - together with generalized
+waterbodies and relief shading - from <a class="extlink"
+href="http://maps.imagico.de/#map=5/57/6.2&l=topo&ui=2">maps.imagico.de</a>.</p>
+
+<p><a href="http://maps.imagico.de/#map=5/57/6.2&l=topo&ui=2"><img class="frame" src="/img/generalization_example.png" width="640" height="440" title="Rendering example" /></a></p>

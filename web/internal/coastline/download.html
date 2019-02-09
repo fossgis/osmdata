@@ -1,0 +1,48 @@
+---
+layout: default
+title: Internal coastline downloads
+---
+<p><a href="/internal/">Internal</a> : <a href="/internal/coastline/">Coastline</a> : Download</p>
+
+<h1>Internal coastline downloads</h1>
+
+<p style="color: red">This is internal data. Do not use unless you know what
+you are doing!</p>
+
+<p>This page can help with figuring out if there is a problem with processing
+the coastline data. If you don't know what this is about, you can safely ignore
+it.</p>
+
+<table class="data">
+    <tr>
+        <th>Known good data</th>
+        <th>New data</th>
+        <th>Changes</th>
+    </tr>
+    <tr>
+        <td><a href="/d/coastline/mask-master.tiff">mask-master.tiff</a></td>
+        <td><a href="/d/coastline/mask-current.tiff">mask-current.tiff</a></td>
+        <td><a href="/d/coastline/mask-diff.tiff">mask-diff.tiff</a></td>
+    </tr>
+{% assign files = 'coastlines-split,land-polygons-complete,land-polygons-split,water-polygons-split' | split: ',' %}
+{% assign srss = '3857,4326' | split: ',' %}
+{% for file in files %}
+{% for srs in srss %}
+    <tr>
+        <td><a href="/download/{{ file }}-{{ srs }}.zip">{{ file }}-{{ srs }}.zip</a></td>
+        <td><a href="/new/{{ file }}-{{ srs }}.zip">{{ file }}-{{ srs }}.zip</a></td>
+        <td></td>
+    </tr>
+{% endfor %}
+{% endfor %}
+{% assign files = 'simplified-land-polygons-split,simplified-water-polygons-split' | split: ',' %}
+{% for file in files %}
+{% assign srs = '3857' %}
+    <tr>
+        <td><a href="/download/{{ file }}-{{ srs }}.zip">{{ file }}-{{ srs }}.zip</a></td>
+        <td><a href="/new/{{ file }}-{{ srs }}.zip">{{ file }}-{{ srs }}.zip</a></td>
+        <td></td>
+    </tr>
+{% endfor %}
+</table>
+

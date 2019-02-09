@@ -1,0 +1,38 @@
+---
+layout: default
+title: Projections
+---
+
+<h1>Projections/Spatial reference systems</h1>
+
+<p>Data available on this site is in one of these two projections/spatial
+reference systems.</p>
+
+<a id="wgs84"><h2>WGS84 (EPSG 4326)</h2></a>
+
+<p>OpenStreetMap uses the WGS84 spatial reference system used by the Global
+Positioning System (GPS). It uses geographic coordinates between -180° and 180°
+longitude and -90° and 90° latitude. So this is the "native" OSM format.</p>
+
+<p class="tip">This is the right choice for you if you need geographical
+coordinates or want to transform the coordinates into some other spatial
+reference system or projection.</p>
+
+<a id="mercator"><h2>Mercator (EPSG 3857)</h2></a>
+
+<p>Most tiled web maps (such as the standard OSM maps and Google Maps) use this
+Mercator projection.</p>
+
+<p>The map area of such maps is a square with x and y coordiates both between
+-20,037,508.34 and 20,037,508.34 meters.  As a result data north of about 85.1°
+and south of about -85.1° latitude can not be shown and has been cut off.</p>
+
+<p>The correct EPSG code for this data is 3857 and this is what the data files
+show. Before this code was allocated, other codes such as 900913 were used. If
+your software does not understand the 3857 code you might need to upgrade. See
+<a href="https://alastaira.wordpress.com/2011/01/23/the-google-maps-bing-maps-spherical-mercator-projection/">this page</a>
+for all the details.</p>
+
+<p class="tip">This is the right choice for you if you are creating tiled web
+maps.</p>
+

@@ -1,0 +1,53 @@
+---
+layout: default
+title: Coastlines
+---
+
+<div class="titleimg" style="background-image: url(/img/data-coastlines.png);">
+</div>
+
+<h1>Coastlines</h1>
+
+<p>Linestrings for coastlines. Long linestrings are split into smaller chunks
+(with no more than 100 points) that are easier and faster to work with.</p>
+
+<h2>Description</h2>
+
+<p>The data has been derived from OpenStreetMap ways tagged with
+<tt>natural=coastline</tt>. Some errors in the OSM data are repaired in the
+process.  <a href="/processing/coastline.html">Learn more about the coastline processing...</a></p>
+
+<p>This dataset can be used together with the <a
+href="/data/land-polygons.html">land</a> or <a href="/data/water-polygons.html">water
+polygons</a>.</p>
+
+{% comment %}
+<p>This data contains all the detail available in OSM. For small scale maps
+(small zoom levels) it might be too detailed and therefore slow to use and
+not well readable.  For this purpose we also offer
+<a href="/data/generalized-coastlines.html">generalized coastline data</a>.</p>
+{% endcomment %}
+
+<h2>Variants</h2>
+
+<ul>
+    <li>The data is available in <a href="/info/projections.html#wgs84">WGS84</a>
+    and <a href="/info/projections.html#mercator">Mercator</a>
+    projection.</li>
+</ul>
+
+<h2>See Also</h2>
+
+<a href="/data/land-polygons.html">Land polygons</a> &middot;
+<a href="/data/water-polygons.html">Water polygons</a>
+
+<h2>Download</h2>
+
+<table class="download">
+{% include download file='coastlines-split-4326.zip' format='Shapefile' proj='WGS84' %}
+{% include download file='coastlines-split-3857.zip' format='Shapefile' proj='Mercator' %}
+</table>
+
+{% include license-odbl.html %}
+{% include notes-broken-coastline.html %}
+

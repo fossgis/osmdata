@@ -1,0 +1,24 @@
+---
+layout: default
+title: Waterbodies data sets
+---
+
+<h1>Waterbodies Data Sets</h1>
+
+<p>Apart from the <a href="/data/coast.html">coastline</a> OpenStreetMap contains a
+lot of other data on surface waterbodies like lakes, rivers and reservoirs.  In
+OpenStreetMap data based maps these are typically rendered from a rendering
+database that also contains most of the other data used in the map.</p>
+
+<p>For the coarse scales (low zoom levels) this data is however too detailed
+and voluminous to be rendered efficiently.  We offer a compact version of this
+data reduced significantly in volume and complexity which still produces
+results very close to those with the full detail data when rendered in plain
+color without outlines.
+<a href="/processing/water.html">Learn more about the waterbody processing...</a></p>
+
+<p>The results of this can be downloaded here.</p>
+
+{% include data/water-reduced-raster.html %}
+{% include data/water-reduced-polygons.html %}
+

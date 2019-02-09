@@ -1,0 +1,47 @@
+---
+layout: default
+title: Antarctic icesheet polygons
+---
+
+<div class="titleimg" style="background-image: url(/img/data-icesheet-polygons.png);">
+</div>
+
+<h1>Antarctic icesheet polygons</h1>
+
+<p>Polygons for ice covered parts of the Antarctic that are not explicitly
+mapped as glaciers in OpenStreetMap.</p>
+
+<h2>Description</h2>
+
+<p>These files are based on the OpenStreetMap data of land ice in the Antarctic
+south of -60 degrees latitude which according to the <a
+href="https://wiki.openstreetmap.org/wiki/Antarctica/Tagging">OSM mapping
+conventions for the Antarctic</a> is not represented by polygons.  You need the
+data here to properly render glaciers in the Antarctic in a map without special
+local adaptations to your map style.  <a href="/processing/icesheet.html">Learn more
+about the Antarctic Icesheet processing...</a></p>
+
+<p>Like in case of the <a href="/data/land-polygons.html">Land Polygons</a> these
+are split into smaller polygons for easier use.</p>
+
+<h2>Using this data</h2>
+
+<p>To use this data in an OpenStreetMap based map download the shapefile below,
+include it as a separate layer in your map style and render it with the same
+fill color/pattern as used for glacier polygons.  If your map style renders
+glaciers with an outline you also need the <a
+href="/data/icesheet-outlines.html">Antarctic icesheet outlines</a>.</p>
+
+<h2>See also</h2>
+
+<a href="/data/icesheet-outlines.html">Antarctic icesheet outlines</a> &middot;
+<a href="/data/land-polygons.html">Land polygons</a>
+
+<h2>Download</h2>
+
+<table class="download">
+{% include download file='antarctica-icesheet-polygons-3857.zip' format='Shapefile' proj='Mercator' %}
+</table>
+
+{% include license-odbl.html %}
+

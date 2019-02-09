@@ -1,0 +1,27 @@
+---
+layout: default
+title: OpenStreetMap Data
+---
+
+<p>The <a href="https://www.openstreetmap.org/">OpenStreetMap project</a>
+collects an amazing amount of geodata and makes it available to the world for
+free. But the raw OpenStreetMap data is hard to use.  On this web site you'll
+find some of that data pre-processed and formatted for easier use.</p>
+
+<p>Pre-processing includes removing or fixing of wrong data and assembling of
+different parts of the data into a usable whole. The data is formatted into <a
+href="/info/formats#shapefile/">Shapefiles</a> for easy use in the usual GIS
+applications.</p>
+
+<p>The following data sets are available from this site:</p>
+
+<h2>Coastline data processings</h2>
+
+{% include data/land-polygons.html %}
+{% include data/water-polygons.html %}
+{% include data/coastlines.html %}
+
+<h2>Antarctic icesheet</h2>
+
+{% include data/icesheet-polygons.html %}
+{% include data/icesheet-outlines.html %}

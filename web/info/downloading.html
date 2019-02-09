@@ -1,0 +1,28 @@
+---
+layout: default
+title: Information about downloading
+---
+
+<h1>Downloading</h1>
+
+<p>All data is available for free download. Use the [Download] buttons on
+the <a href="/data/">data pages</a>. Files can be quite large (up to several
+hundred megabytes), so make sure to only download what you need.</p>
+
+<p>All downloads are compressed in zip archives.</p>
+
+
+<h1>Recurring downloads</h1>
+
+<p>Updated data is usally available once a day. Some data is updated less often
+if it doesn't change much. You can use automation to re-download new versions
+of the data, but please use the <tt>If-Modified-Since</tt> header. This will
+make sure that data is only downloaded if it actually changed.</p>
+
+<p class="tip">Use the <tt>curl</tt> program for downloading, it supports
+the <tt>-z</tt>, <tt>--time-cond</tt> option. You can set it up easily so that
+it will only re-download a file if it has changed.</p>
+
+<p>If you abuse this service and download the date more often than necessary,
+we might suspend the service without notice!</p>
+

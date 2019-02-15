@@ -31,8 +31,8 @@ sleep 180
 
 ssh robot@${IP} sudo apt-get -y -t stretch-backports install osmcoastline osmium-tool python3-pyosmium
 
-# temp until we have package
-scp ~/osmcoastline robot@${IP}:
+# temporary fix until we have a newer package
+scp ~/osmdata/scripts/coastline/osmcoastline robot@${IP}:
 ssh robot@${IP} sudo cp osmcoastline /usr/bin/
 
 for job in coastline icesheet; do

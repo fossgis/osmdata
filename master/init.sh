@@ -60,7 +60,7 @@ cp /tmp/hcloud-linux-*/bin/hcloud $BIN
 
 adduser --gecos "Robot User" --disabled-password robot
 mkdir /home/robot/.ssh
-cp /home/root/.ssh/authorized_keys /home/robot/.ssh
+cp /root/.ssh/authorized_keys /home/robot/.ssh
 chown -R robot:robot /home/robot/.ssh
 chmod 700 /home/robot/.ssh
 chmod 600 /home/robot/.ssh/authorized_keys

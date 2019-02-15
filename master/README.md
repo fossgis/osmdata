@@ -27,7 +27,7 @@ hcloud server create \
     --ssh-key $SSH_KEY
 ```
 
-This uses the cheapest cloud server they have which costs 2,96 EUR per month.
+This uses the cheapest cloud server they have which costs 2.96 EUR per month.
 
 * Create a new volume:
 
@@ -40,14 +40,31 @@ hcloud volume create \
     --automount
 ```
 
-* You should now be able to log into the server as root (`hcloud server ssh osmdata`)
-  and see a volume mounted somewhere under `/mnt`.
+* You should now be able to log into the server as root (`hcloud server ssh
+  osmdata`) and see a volume mounted somewhere under `/mnt`.
 * Copy the script `init.sh` to the new server and run it as `root` user. The
   script will ask for the Hetzner cloud token at some point which you have
-  to enter.
+  to enter. The `-t` option on the `ssh` command is important, otherwise
+  it can't ask for the token.
+```
+IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' osmdata`
+echo $IP
+scp osmdata/master/init.sh root@$IP:/tmp/
+ssh -t root@$IP /tmp/init.sh
+```
 
-You now have a script `/usr/local/bin/run-update.sh` which can be run as
-`robot` user to do an update run.
+If his script runs through without errors, you are done with the update of the
+master server.
+
+# Operation
+
+You have a script `/usr/local/bin/run-update.sh` which can be run as
+`robot` user to do an update run. The first time this is run, it will download
+a complete planet and update it using the hourly replication files. Further
+runs will update from the planet of the last run. This will also run the
+data processing and put the results into `/data/results`.
+
+After testing this you might want to create a cronjob for it.
 
 
 # Notes

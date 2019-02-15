@@ -35,8 +35,7 @@ $MASTER/build-web.sh
 ssh-keygen -t rsa -C robot -N '' -f /home/robot/.ssh/id_rsa
 
 cp $MASTER/users.yml.tmpl ~/users.yml
-echo -n "        - " >>~/users.yml
-cat .ssh/id_rsa.pub >>~/users.yml
-echo -n "        - " >>~/users.yml
-sed -e 's/^/        - /' .ssh/authorized_keys >>~/users.yml
+
+cat .ssh/id_rsa.pub .ssh/authorized_keys \
+    | sed -e 's/^/        - /'  >>~/users.yml
 

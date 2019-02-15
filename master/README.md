@@ -10,12 +10,13 @@ Here are the steps needed to install the master server:
 * Go to the [Hetzner Cloud console](https://console.hetzner.cloud/) and log
   in.
 * Add a new project.
-* Add your ssh public key.
+* Add one or more of your ssh public keys.
 * Add a new API token to the project. Put the API token somewhere safe.
 * Create a hcloud context: `hcloud context create osmdata`. It will ask you
   for the token you have just created.
 * Create a new server. Instead of `$SSH_KEY` use the name of your ssh key
-  you have just set up.
+  you have just set up. (You can also use the `--ssh-key` option multiple
+  times to add several keys.)
 
 ```
 hcloud server create \

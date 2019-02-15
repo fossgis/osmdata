@@ -12,7 +12,7 @@ set -x
 REPOSITORY=/home/robot/osmdata
 BIN=/usr/local/bin
 
-# -- Debian packages --
+# -- Install Debian packages --
 
 echo "deb http://deb.debian.org/debian stretch-backports main" >/etc/apt/sources.list.d/backports.list
 

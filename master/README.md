@@ -46,6 +46,7 @@ hcloud volume create \
   script will ask for the Hetzner cloud token at some point which you have
   to enter. The `-t` option on the `ssh` command is important, otherwise
   it can't ask for the token.
+
 ```
 IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' osmdata`
 echo $IP
@@ -72,5 +73,6 @@ After testing this you might want to create a cronjob for it.
 * The init script installs the `acmetool` software for setting up LetsEncrypt
   certificates, but doesn't actually use it. You have to do the TLS setup
   manually if you want it.
-
+* While testing you might want to run the update script in `tmux`, because
+  it will run for a few hours. `tmux` is already installed on the system.
 

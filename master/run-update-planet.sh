@@ -54,3 +54,5 @@ hcloud volume detach planet
 
 hcloud server delete $SERVER
 
+echo "run-update-planet done."
+

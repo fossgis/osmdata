@@ -20,11 +20,17 @@ LOGFILE=~/log/run-$STARTTIME.log
 
 exec >$LOGFILE 2>&1
 
+date
+
 if [ "x$1" != "x-p" ]; then
     ~/osmdata/master/run-update-planet.sh </dev/null
 fi
 
+date
+
 ~/osmdata/master/run-update-osmdata.sh </dev/null
+
+date
 
 if [ -e /data/checked/land-polygons-split-3857.zip ]; then
     if ~/osmdata/scripts/coastline/compare-coastline-polygons.sh /data/compare /data/results/land-polygons-split-3857.zip; then
@@ -37,4 +43,8 @@ fi
 
 # Remove old log files.
 find ~/log -mtime +28 -type f -name 'run-*.log' -delete
+
+date
+
+echo "run-update done."
 

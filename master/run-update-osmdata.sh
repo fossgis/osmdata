@@ -51,6 +51,7 @@ for job in coastline icesheet; do
 done
 
 scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
+scp robot@${IP}:/mnt/data/planet/last-update /data/results/
 ssh robot@${IP} sudo umount /mnt
 
 hcloud volume detach planet

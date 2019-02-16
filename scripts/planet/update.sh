@@ -45,6 +45,8 @@ export OSMIUM_POOL_THREADS=3
 mv $PLANET $OLD_PLANET
 mv $NEW_PLANET $PLANET
 
+osmium fileinfo -g header.option.osmosis_replication_timestamp $PLANET >$DATADIR/last-update
+
 date $iso_date
 
 echo "Filtering coastlines..."
@@ -67,8 +69,6 @@ osmcoastline_filter --verbose --output=$NEW_ANT_COASTLINES $ANT
 mv $NEW_ANT_COASTLINES $ANT_COASTLINES
 
 date $iso_date
-
-echo $STARTTIME >$DATADIR/last-update
 
 df -h
 

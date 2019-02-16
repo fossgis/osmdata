@@ -32,6 +32,7 @@ apt-get install -y \
     libgdal-dev \
     libproj-dev \
     make \
+    python-gdal \
     rsync \
     spatialite-bin \
     sqlite3 \

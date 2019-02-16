@@ -33,3 +33,8 @@ if [ -e /data/checked/land-polygons-split-3857.zip ]; then
     fi
 fi
 
+#------------------------------------------------------------------------------
+
+# Remove old log files.
+find ~/log -mtime +28 -type f -name 'run-*.log' -delete
+

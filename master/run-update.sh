@@ -6,6 +6,11 @@
 #  data exports. Use "-p" to not do the planet update.
 #
 
+if [ "$USER" != "robot" ]; then
+    echo "Must be run as user robot"
+    exit 1
+fi
+
 set -x
 set -e
 

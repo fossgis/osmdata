@@ -3,6 +3,11 @@
 #  run-update-planet.sh
 #
 
+if [ "$USER" != "robot" ]; then
+    echo "Must be run as user robot"
+    exit 1
+fi
+
 set -e
 
 SERVER=update-planet

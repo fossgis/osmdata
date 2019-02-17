@@ -100,7 +100,7 @@ su -c /home/robot/osmdata/master/init-robot.sh robot
 
 cp /home/robot/gdal-tools/gdal_maskcompare_wm $BIN
 
-for script in build-web.sh run-update.sh servers2web.sh; do
+for script in build-web.sh release-coastline.sh run-update.sh servers2web.sh; do
     ln -s /home/robot/osmdata/master/$script $BIN/$script
 done
 

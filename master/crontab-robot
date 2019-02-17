@@ -1,0 +1,4 @@
+# /etc/cron.d/robot
+
+*/10 * * * * robot /home/robot/osmdata/master/servers2web.sh
+

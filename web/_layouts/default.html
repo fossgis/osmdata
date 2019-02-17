@@ -8,8 +8,11 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css" />
 {% if page.openlayers %}
     <script src="/js/ol.js"></script>
-    <script src="/js/map.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/ol.css">
+{% endif %}
+{% if page.js %}
+    <script src="/js/util.js"></script>
+    <script src="/js/{{ page.js }}.js"></script>
 {% endif %}
 </head>
 <body>

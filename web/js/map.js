@@ -24,32 +24,8 @@ function update_opacity(name, value) {
     layers[name].setOpacity(value);
 }
 
-function get_last_update(which, func) {
-    var request = new XMLHttpRequest();
-    if (!request) {
-        return;
-    }
-    request.onreadystatechange = function() {
-        if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            func(which, request.responseText);
-        }
-    };
-    request.open('GET', '/' + which + '/last-update');
-    request.send();
-}
-
-function update_element_text(which, text) {
-    var id;
-    if (which === 'download') {
-        id = 'good';
-    } else {
-        id = 'new';
-    }
-    document.getElementById('tstamp-' + id).innerText = text;
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-    get_last_update('download', update_element_text);
+    get_last_update('good', update_element_text);
     get_last_update('new', update_element_text);
 
     map = new ol.Map({

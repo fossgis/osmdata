@@ -9,12 +9,12 @@ openlayers: true
 
 <div id="controls">
     <div class="box-slide">
-        <input id="slide-master" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('master', this.value)">
-        Good data - <span id="tstamp-master"></span>
+        <input id="slide-good" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('good', this.value)">
+        Good data - <span id="tstamp-good"></span>
     </div>
     <div class="box-slide">
-        <input id="slide-current" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('current', this.value)">
-        New data - <span id="tstamp-current"></span>
+        <input id="slide-new" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('new', this.value)">
+        New data - <span id="tstamp-new"></span>
     </div>
     <div class="box-slide">
         <input id="slide-diff" type="range" min="0" max="1" step="0.01" value="1.0" onchange="update_opacity('diff', this.value)">

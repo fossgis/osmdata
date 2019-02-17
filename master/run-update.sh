@@ -32,10 +32,10 @@ date
 
 date
 
-if [ -e /data/checked/land-polygons-split-3857.zip ]; then
-    if ~/osmdata/scripts/coastline/compare-coastline-polygons.sh /data/compare /data/results/land-polygons-split-3857.zip; then
-        mv /data/results/* /data/checked/
-        cp /data/checked/* /data/results/
+if [ -e /data/good/land-polygons-split-3857.zip ]; then
+    if ~/osmdata/scripts/coastline/compare-coastline-polygons.sh /data/compare /data/new/land-polygons-split-3857.zip; then
+        mv /data/new/* /data/good/
+        cp /data/good/* /data/new/
     fi
 fi
 

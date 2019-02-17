@@ -3,7 +3,7 @@
 #
 #  compare_coastline_polygons DIR SOURCE
 #
-#  to reset remove symlink $DIR/mask-master.tiff
+#  to reset remove symlink $DIR/mask-good.tiff
 #
 #------------------------------------------------------------------------------
 
@@ -35,16 +35,16 @@ gdal_rasterize -q --config GDAL_CACHEMAX 1024 "$DIR/land-polygons-split-3857" -l
     -init 0 -burn 255 -ts 8192 8192 -ot Byte -co COMPRESS=DEFLATE \
     $DIR/mask-$STARTTIME_COMPACT.tiff
 
-rm -f $DIR/mask-current.tiff
-ln -s $DIR/mask-$STARTTIME_COMPACT.tiff $DIR/mask-current.tiff
+rm -f $DIR/mask-new.tiff
+ln -s $DIR/mask-$STARTTIME_COMPACT.tiff $DIR/mask-new.tiff
 
 #------------------------------------------------------------------------------
 
 # generate a "diff" image for human consumption
 rm -f $DIR/mask-diff.tiff
 
-if [ -e $DIR/mask-master.tiff ]; then
-    gdal_calc.py -A $DIR/mask-master.tiff \
+if [ -e $DIR/mask-good.tiff ]; then
+    gdal_calc.py -A $DIR/mask-good.tiff \
                  -B $DIR/mask-$STARTTIME_COMPACT.tiff \
                  --NoDataValue=0 --type=Byte --co=COMPRESS=DEFLATE \
                  --outfile=$DIR/mask-diff.tiff --calc="(A!=B)*255"
@@ -52,7 +52,7 @@ fi
 
 #------------------------------------------------------------------------------
 
-for img in current master diff; do
+for img in good new diff; do
     mkdir -p $WEBDIR/$img
     gdal2tiles.py --webviewer none $DIR/mask-$img.tiff $WEBDIR/$img
 done
@@ -67,15 +67,15 @@ fi
 
 #------------------------------------------------------------------------------
 
-if [ ! -h $DIR/mask-master.tiff ]; then
-    ln -s $DIR/mask-$STARTTIME_COMPACT.tiff $DIR/mask-master.tiff
+if [ ! -h $DIR/mask-good.tiff ]; then
+    ln -s $DIR/mask-$STARTTIME_COMPACT.tiff $DIR/mask-good.tiff
     echo "$STARTTIME_COMPACT: 0:0.0:0:0.0:0:0.0:0:0.0:0.0:0.0 OK" >>$DIR/differences
     exit 0
 fi
 
 #------------------------------------------------------------------------------
 
-DIFFERENCES=`gdal_maskcompare_wm $DIR/mask-master.tiff $DIR/mask-$STARTTIME_COMPACT.tiff 20000 | grep 'short version:'`
+DIFFERENCES=`gdal_maskcompare_wm $DIR/mask-good.tiff $DIR/mask-$STARTTIME_COMPACT.tiff 20000 | grep 'short version:'`
 DIFF_RATING=`echo "$DIFFERENCES" | cut -d ':' -f 10`
 
 # check if something went wrong with maskcompare and assume error then
@@ -96,13 +96,13 @@ fi
 #------------------------------------------------------------------------------
 
 echo "$DIFFERENCES OK" | sed "s/short version/$STARTTIME_COMPACT/" >>$DIR/differences
-rm $DIR/mask-master.tiff
-ln -s mask-$STARTTIME_COMPACT.tiff $DIR/mask-master.tiff
+rm $DIR/mask-good.tiff
+ln -s mask-$STARTTIME_COMPACT.tiff $DIR/mask-good.tiff
 
 #------------------------------------------------------------------------------
 
 # Remove old mask files. We do this here at the end, so we are sure not to
-# delete any mask files still referenced by mask-master.tiff.
+# delete any mask files still referenced by mask-good.tiff.
 find "$DIR" -mtime +28 -type f -name 'mask-*.tiff' -delete
 
 

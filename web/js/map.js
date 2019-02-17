@@ -15,9 +15,9 @@ function open_layer(name) {
 }
 
 var layers = {
-    'master':  open_layer('master'),
-    'current': open_layer('current'),
-    'diff':    open_layer('diff')
+    'good': open_layer('good'),
+    'new':  open_layer('new'),
+    'diff': open_layer('diff')
 };
 
 function update_opacity(name, value) {
@@ -41,9 +41,9 @@ function get_last_update(which, func) {
 function update_element_text(which, text) {
     var id;
     if (which === 'download') {
-        id = 'master';
+        id = 'good';
     } else {
-        id = 'current';
+        id = 'new';
     }
     document.getElementById('tstamp-' + id).innerText = text;
 }
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     get_last_update('new', update_element_text);
 
     map = new ol.Map({
-        layers: [layers['master'], layers['current'], layers['diff']],
+        layers: [layers['good'], layers['new'], layers['diff']],
         target: 'map',
         controls: [new ol.control.Zoom, new ol.control.Attribution],
         view: new ol.View({
@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     map.addControl(mouseposition);
 
-    update_opacity('master', document.getElementById('slide-master').value);
-    update_opacity('current', document.getElementById('slide-current').value);
+    update_opacity('good', document.getElementById('slide-good').value);
+    update_opacity('new', document.getElementById('slide-new').value);
     update_opacity('diff', document.getElementById('slide-diff').value);
 });
 

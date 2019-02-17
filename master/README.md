@@ -63,7 +63,7 @@ You have a script `/usr/local/bin/run-update.sh` which can be run as
 `robot` user to do an update run. The first time this is run, it will download
 a complete planet and update it using the hourly replication files. Further
 runs will update from the planet of the last run. This will also run the
-data processing and put the results into `/data/results`.
+data processing and put the results into `/data/new/`.
 
 After testing this you might want to create a cronjob for it.
 

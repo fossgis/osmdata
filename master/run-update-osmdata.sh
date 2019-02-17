@@ -52,11 +52,11 @@ for job in coastline icesheet; do
     ssh robot@${IP} mkdir $job
     scp osmdata/scripts/$job/* robot@${IP}:$job/
     ssh robot@${IP} $job/update.sh
-    scp robot@${IP}:data/$job/results/\*.zip /data/results/
+    scp robot@${IP}:data/$job/results/\*.zip /data/new/
 done
 
 scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
-scp robot@${IP}:/mnt/data/planet/last-update /data/results/
+scp robot@${IP}:/mnt/data/planet/last-update /data/new/
 ssh robot@${IP} sudo umount /mnt
 
 hcloud volume detach planet

@@ -114,6 +114,7 @@ cp /home/robot/osmdata/master/crontab-robot /etc/cron.d/robot
 
 cp $REPOSITORY/master/apache.conf /etc/apache2/sites-available/000-default.conf
 
-systemctl restart apache2.service
+a2dismod status
 
+systemctl restart apache2.service
 

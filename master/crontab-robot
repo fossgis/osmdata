@@ -1,4 +1,9 @@
 # /etc/cron.d/robot
 
+PATH=/usr/local/bin:/usr/bin:/bin
+USER=robot
+
 */10 * * * * robot /home/robot/osmdata/master/servers2web.sh
+
+#17 4 * * * robot /home/robot/osmdata/master/run-update.sh
 

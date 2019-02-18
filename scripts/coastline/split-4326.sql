@@ -55,11 +55,6 @@ INSERT INTO water_polygons_grid_4326 (x, y, geom)
         FROM grid_4326 g, land_polygons_grid_4326_union p
             WHERE g.x = p.x AND g.y = p.y;
 
--- Delete some tiny slivers along the antimeridian created as a side-effect of our code
-DELETE FROM water_polygons_grid_4326
-    WHERE ST_Contains(ST_MakeEnvelope(-180.0, -90.0, -179.9998, -77.0, 4326), geom)
-       OR ST_Contains(ST_MakeEnvelope(179.9998, -90.0, 180.0, -77.0, 4326), geom);
-
 INSERT INTO water_polygons_grid_4326 (x, y, geom)
     SELECT x, y, geom
         FROM grid_4326

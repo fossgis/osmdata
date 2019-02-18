@@ -23,7 +23,26 @@ time ogr2ogr -f "PostgreSQL" PG:"dbname=${PGDATABASE} user=${PGUSER}" \
     -overwrite -lco GEOMETRY_NAME=geom -lco FID=id -nln land_polygons_${srid} \
     $DATADIR/coastlines-complete-${srid}.db land_polygons
 
-time psql -f $BIN/create-grid-${srid}.sql
+if [ "$srid" = "3857" ] ; then
+    xmin=-20037508.34
+    ymin=-20037508.34
+    xmax=20037508.34
+    ymax=20037508.34
+    overlap=50.0
+    split=64
+else
+    xmin=-180
+    ymin=-90
+    xmax=180
+    ymax=90
+    overlap=0.0005
+    split=360
+fi
+
+time psql --set=prefix=grid \
+    --set=srid=$srid --set=split=$split --set=overlap=$overlap \
+    --set=xmin=$xmin --set=xmax=$xmax --set=ymin=$ymin --set=ymax=$ymax \
+    -f $BIN/create-grid.sql
 
 time psql -f $BIN/split-on-grid.sql --set=srid=${srid} --set=input_table=land_polygons_${srid} --set=output_table=land_polygons_grid_${srid}_union
 

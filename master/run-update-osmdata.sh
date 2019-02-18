@@ -51,7 +51,11 @@ ssh robot@${IP} sudo cp osmcoastline /usr/bin/
 for job in coastline icesheet; do
     ssh robot@${IP} mkdir $job
     scp osmdata/scripts/$job/* robot@${IP}:$job/
+
+    echo "Running $job job..."
     ssh robot@${IP} $job/update.sh
+
+    echo "Copying results of $job job to master..."
     scp robot@${IP}:data/$job/results/\*.zip /data/new/
 done
 

@@ -29,7 +29,7 @@ if [ "$srid" = "3857" ] ; then
     xmax=20037508.34
     ymax=20037508.34
     overlap=50.0
-    split=64
+    split=128
 else
     xmin=-180
     ymin=-90

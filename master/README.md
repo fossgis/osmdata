@@ -42,10 +42,7 @@ hcloud volume create \
 
 * You should now be able to log into the server as root (`hcloud server ssh
   osmdata`) and see a volume mounted somewhere under `/mnt`.
-* Copy the script `init.sh` to the new server and run it as `root` user. The
-  script will ask for the Hetzner cloud token at some point which you have
-  to enter. The `-t` option on the `ssh` command is important, otherwise
-  it can't ask for the token.
+* Copy the script `init.sh` to the new server and run it as `root` user:
 
 ```
 IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' osmdata`
@@ -54,8 +51,16 @@ scp osmdata/master/init.sh root@$IP:/tmp/
 ssh -t root@$IP /tmp/init.sh
 ```
 
-If his script runs through without errors, you are done with the update of the
-master server.
+The script will ask for the Hetzner cloud token at some point which you have to
+enter. The `-t` option on the `ssh` command is important, otherwise it can't
+ask for the token.
+
+* If his script runs through without errors, you are done with the update of
+  the master server and you can now log in as the `robot` user:
+
+```
+hcloud server ssh -u robot osmdata
+```
 
 # Operation
 

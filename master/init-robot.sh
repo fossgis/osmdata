@@ -14,6 +14,10 @@ cd gdal-tools
 make gdal_maskcompare_wm
 cd /home/robot
 
+git clone --branch 1.32.10 https://github.com/mapbox/tippecanoe
+cd tippecanoe
+make
+
 # -- Log --
 
 mkdir -p /home/robot/log

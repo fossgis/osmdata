@@ -12,11 +12,11 @@ Here are the steps needed to install the master server:
 * Add a new project.
 * Add one or more of your ssh public keys.
 * Add a new API token to the project. Put the API token somewhere safe.
-* Create a hcloud context: `hcloud context create osmdata`. It will ask you
-  for the token you have just created.
-* Create a new server. Instead of `$SSH_KEY` use the name of your ssh key
-  you have just set up. (You can also use the `--ssh-key` option multiple
-  times to add several keys.)
+* Create a hcloud context on your own machine: `hcloud context create osmdata`.
+  It will ask you for the token you have just created.
+* Create a new cloud server. Instead of `$SSH_KEY` use the name of your ssh
+  key you have just set up. (You can also use the `--ssh-key` option multiple
+  times to add several keys.) On your own machine run:
 
 ```
 hcloud server create \
@@ -29,7 +29,7 @@ hcloud server create \
 
 This uses the cheapest cloud server they have which costs 2.96 EUR per month.
 
-* Create a new volume:
+* Still on your own machine, create a new volume:
 
 ```
 hcloud volume create \
@@ -40,8 +40,8 @@ hcloud volume create \
     --automount
 ```
 
-* You should now be able to log into the server as root (`hcloud server ssh
-  osmdata`) and see a volume mounted somewhere under `/mnt`.
+* You should now be able to log into the master server as root (`hcloud server
+  ssh osmdata`) and see a volume mounted somewhere under `/mnt`.
 * Copy the script `init.sh` to the new server and run it as `root` user:
 
 ```
@@ -64,13 +64,16 @@ hcloud server ssh -u robot osmdata
 
 # Operation
 
-You have a script `/usr/local/bin/run-update.sh` which can be run as
-`robot` user to do an update run. The first time this is run, it will download
-a complete planet and update it using the hourly replication files. Further
-runs will update from the planet of the last run. This will also run the
-data processing and put the results into `/data/new/`.
+On the master server, you have a script `/usr/local/bin/run-update.sh` which
+can be run as `robot` user to do an update run. The first time this is run, it
+will download a complete planet and update it using the hourly replication
+files. Further runs will update from the planet of the last run. This will also
+run the data processing and put the results into `/data/new/`.
 
 After testing this you might want to create a cronjob for it.
+
+See the comments at the beginning of the `run-update.sh` script for some
+options.
 
 
 # Notes
@@ -78,6 +81,7 @@ After testing this you might want to create a cronjob for it.
 * The init script installs the `acmetool` software for setting up LetsEncrypt
   certificates, but doesn't actually use it. You have to do the TLS setup
   manually if you want it.
-* While testing you might want to run the update script in `tmux`, because
-  it will run for a few hours. `tmux` is already installed on the system.
+* While testing you might want to run the update script in
+  [tmux](https://github.com/tmux/tmux), because it will run for a few hours.
+  `tmux` is already installed on the system.
 

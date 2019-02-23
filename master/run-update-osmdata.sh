@@ -1,12 +1,29 @@
 #!/bin/bash
 #
-#  run-update-osmdata.sh
+#  run-update-osmdata.sh [JOBS...]
+#
+#  run-update-osmdata.sh                    -- Run all jobs
+#  run-update-osmdata.sh coastline          -- Run only coastline job
+#  run-update-osmdata.sh coastline icesheet -- Run coastline and icesheet jobs
 #
 
 if [ "$USER" != "robot" ]; then
     echo "Must be run as user robot"
     exit 1
 fi
+
+declare -A jobs
+
+if [ -z "$1" ]; then
+    jobs['coastline']=1
+    jobs['icesheet']=1
+else
+    for job in $*; do
+        jobs[$job]=1
+    done
+fi
+
+echo "Running jobs: ${!jobs[@]}"
 
 set -e
 
@@ -48,7 +65,9 @@ ssh robot@${IP} sudo apt-get -y -t stretch-backports install \
 scp ~/osmdata/scripts/coastline/osmcoastline robot@${IP}:
 ssh robot@${IP} sudo cp osmcoastline /usr/bin/
 
-for job in coastline icesheet; do
+update_job() {
+    local job=$1
+
     ssh robot@${IP} mkdir $job
     scp osmdata/scripts/$job/* robot@${IP}:$job/
 
@@ -57,9 +76,17 @@ for job in coastline icesheet; do
 
     echo "Copying results of $job job to master..."
     scp robot@${IP}:data/$job/results/\*.zip /data/new/
-done
+}
 
-scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
+if [ "${jobs[coastline]}" = "1" ]; then
+    update_job coastline
+    scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
+fi
+
+if [ "${jobs[icesheet]}" = "1" ]; then
+    update_job icesheet
+fi
+
 scp robot@${IP}:/mnt/data/planet/last-update /data/new/
 ssh robot@${IP} sudo umount /mnt
 

@@ -1,9 +1,17 @@
 #!/bin/sh
 #
-#  run-update.sh [-p]
+#  run-update.sh [-p] [JOBS...]
 #
 #  Run data update job. This will update the planet file and then do various
 #  data exports. Use "-p" to not do the planet update.
+#
+#  If JOBS isn't used, all jobs will be run, otherwise only the specified
+#  jobs will be run.
+#
+#  run-update.sh                    -- Update planet, run all jobs
+#  run-update.sh -p                 -- Do not update planet, run all jobs
+#  run-update.sh coastline          -- Update planet, run only coastline job
+#  run-update.sh coastline icesheet -- Update planet, run coastline and icesheet jobs
 #
 
 if [ "$USER" != "robot" ]; then
@@ -22,13 +30,15 @@ exec >$LOGFILE 2>&1
 
 date
 
-if [ "x$1" != "x-p" ]; then
+if [ "x$1" = "x-p" ]; then
+    shift
+else
     ~/osmdata/master/run-update-planet.sh </dev/null
 fi
 
 date
 
-~/osmdata/master/run-update-osmdata.sh </dev/null
+~/osmdata/master/run-update-osmdata.sh $* </dev/null
 
 date
 

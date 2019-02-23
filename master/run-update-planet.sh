@@ -30,7 +30,7 @@ IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER`
 
 echo $IP
 
-sed -e "s/^IP /${IP} /" ssh/known_hosts >~/.ssh/known_hosts
+sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
 # The new server takes a while to be initialized even after the hcloud
 # command returns. So to make sure we have a system we can ssh to, we wait

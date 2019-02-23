@@ -47,7 +47,7 @@ IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER`
 
 echo $IP
 
-sed -e "s/^IP /${IP} /" ssh/known_hosts >~/.ssh/known_hosts
+sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
 # The new server takes a while to be initialized even after the hcloud
 # command returns. So to make sure we have a system we can ssh to, we wait
@@ -69,7 +69,7 @@ update_job() {
     local job=$1
 
     ssh robot@${IP} mkdir $job
-    scp osmdata/scripts/$job/* robot@${IP}:$job/
+    scp ~/osmdata/scripts/$job/* robot@${IP}:$job/
 
     echo "Running $job job..."
     ssh robot@${IP} $job/update.sh
@@ -80,8 +80,8 @@ update_job() {
 
 if [ "${jobs[coastline]}" = "1" ]; then
     update_job coastline
-    scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
-    scp robot@${IP}:data/coastline/osmi/\*.json.gz /data/err/
+    scp robot@${IP}:~/data/coastline/osmi.tar.bz2 /data/osmi/
+    scp robot@${IP}:~/data/coastline/osmi/\*.json.gz /data/err/
 fi
 
 if [ "${jobs[icesheet]}" = "1" ]; then

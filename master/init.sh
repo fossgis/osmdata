@@ -80,7 +80,7 @@ umount $MNT
 mkdir -p /srv/www/osmdata
 chown robot:robot /srv/www/osmdata
 
-for dir in good new compare osmi web; do
+for dir in good new compare err osmi web; do
     mkdir -p /data/$dir
     chown robot:robot /data/$dir
 done

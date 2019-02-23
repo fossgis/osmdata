@@ -98,8 +98,7 @@ for layer in $LINE_LAYERS; do
         -select osm_id -where "error='$layer'" $OSMIDIR/error_lines.shp
 done
 
-time ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_ways.json.gz \
-        $OSMIDIR/coastline_ways.shp
+time ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_ways.json.gz $OSMIDIR/ways.shp
 
 date $iso_date
 

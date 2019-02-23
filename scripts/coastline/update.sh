@@ -85,6 +85,22 @@ sqlite3 $DBFILE 'SELECT timestamp FROM meta;' | cut -d: -f1-2 >$OSMIDIR/tstamp
 
 tar cCjf $DATADIR $DATADIR/osmi.tar.bz2 osmi
 
+POINT_LAYERS="single_point_in_ring not_a_ring end_point fixed_end_point double_node tagged_node"
+LINE_LAYERS="direction not_a_ring not_closed overlap added_line questionable invalid"
+
+for layer in $POINT_LAYERS; do
+    ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_error_points_$layer.json.gz \
+        -select osm_id -where "error='$layer'" $OSMIDIR/error_points.shp
+done
+
+for layer in $LINE_LAYERS; do
+    ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_error_lines_$layer.json.gz \
+        -select osm_id -where "error='$layer'" $OSMIDIR/error_lines.shp
+done
+
+time ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_ways.json.gz \
+        $OSMIDIR/coastline_ways.shp
+
 date $iso_date
 
 

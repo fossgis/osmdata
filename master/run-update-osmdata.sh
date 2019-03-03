@@ -37,7 +37,7 @@ hcloud server create \
     --location nbg1 \
     --type $STYPE \
     --image debian-9 \
-    --ssh-key joto \
+    --ssh-key admin \
     --user-data-from-file ~/osmdata/servers/$SERVER.yml \
     --user-data-from-file ~/users.yml \
     --user-data-from-file ~/ssh/keys.yml \

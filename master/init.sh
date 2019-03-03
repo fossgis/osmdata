@@ -88,7 +88,7 @@ done
 
 # -- Get git repository --
 
-(cd /home/robot; su -c "git clone https://github.com/joto/osmdata $REPOSITORY" robot)
+(cd /home/robot; su -c "git clone https://github.com/fossgis/osmdata $REPOSITORY" robot)
 
 
 # -- Run robot user setup --

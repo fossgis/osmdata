@@ -34,7 +34,7 @@ rm -f $OLD_PLANET
 date $iso_date
 
 echo "Downloading planet file (if there isn't one)..."
-test -f $PLANET || wget -O $PLANET https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
+test -f $PLANET || wget --no-verbose -O $PLANET https://planet.openstreetmap.org/pbf/planet-latest.osm.pbf
 
 date $iso_date
 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  Initialize the master server.
 #
@@ -118,4 +118,6 @@ a2dismod status
 a2enmod headers
 
 systemctl restart apache2.service
+
+echo "init.sh done."
 

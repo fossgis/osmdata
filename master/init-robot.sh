@@ -1,26 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 set -x
 
-cd /home/robot
+cd ~
 
-MASTER=/home/robot/osmdata/master
+MASTER=~/osmdata/master
 
 # -- Compile tools --
 
 git clone https://github.com/imagico/gdal-tools
 cd gdal-tools
 make gdal_maskcompare_wm
-cd /home/robot
+cd ~
 
 git clone --branch 1.32.10 https://github.com/mapbox/tippecanoe
 cd tippecanoe
 make
+cd ~
 
 # -- Log --
 
-mkdir -p /home/robot/log
+mkdir -p ~/log
 
 # -- hcloud setup --
 
@@ -36,10 +37,10 @@ $MASTER/build-web.sh
 
 # -- SSH setup --
 
-ssh-keygen -t rsa -C robot -N '' -f /home/robot/.ssh/id_rsa
+ssh-keygen -t rsa -C robot -N '' -f ~/.ssh/id_rsa
 
 cp $MASTER/users.yml.tmpl ~/users.yml
 
-cat .ssh/id_rsa.pub .ssh/authorized_keys \
+cat ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys \
     | sed -e 's/^/        - /'  >>~/users.yml
 

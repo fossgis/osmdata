@@ -1,0 +1,4 @@
+# /etc/cron.daily/acmetool
+
+acmetool status >/var/log/acmetool/cron.log 2>&1 && acmetool --batch --xlog.severity=info >>/var/log/acmetool/cron.log 2>&1
+

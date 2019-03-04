@@ -79,7 +79,8 @@ options.
 
 * The init script installs the `acmetool` software for setting up LetsEncrypt
   certificates, but doesn't actually use it. You have to do the TLS setup
-  manually if you want it.
+  manually if you want it. For this call `acmetool want osmdata.openstreetmap.de`.
+  After that you can activate the SSL web site: `a2ensite 000-default-ssl.conf`.
 * While testing you might want to run the update script in
   [tmux](https://github.com/tmux/tmux), because it will run for a few hours.
   `tmux` is already installed on the system.

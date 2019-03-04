@@ -105,14 +105,16 @@ for script in build-web.sh release-coastline.sh run-update.sh servers2web.sh; do
 done
 
 
-# -- Install robot crontab --
+# -- Install crontabs --
 
 cp /home/robot/osmdata/master/crontab-robot /etc/cron.d/robot
+cp /home/robot/osmdata/master/crontab-acmetool /etc/cron.daily/
 
 
 # -- Apache setup --
 
 cp $REPOSITORY/master/apache.conf /etc/apache2/sites-available/000-default.conf
+cp $REPOSITORY/master/apache-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
 
 a2dismod status
 a2enmod headers

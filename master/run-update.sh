@@ -19,7 +19,6 @@ if [ "$USER" != "robot" ]; then
     exit 1
 fi
 
-set -x
 set -e
 
 iso_date='+%Y-%m-%dT%H:%M:%S'

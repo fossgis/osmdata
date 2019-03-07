@@ -1,7 +1,7 @@
 <tr>
     <td class="left"><a class="btn" href="/download/{{ include.file }}">Download</a></td>
-    <td class="right">Format: <a href="/info/formats{{ include.format.downcase }}">{{ include.format }}</a>,
-            Projection: <a href="/info/projections{{ include.proj.downcase }}">{{ include.proj }}</a><br/>
+    <td class="right">Format: <a href="/info/formats.html#{{ include.format.downcase }}">{{ include.format }}</a>,
+            Projection: <a href="/info/projections.html#{{ include.proj.downcase }}">{{ include.proj }}</a><br/>
             {{ include.desc }}
     </td>
 </tr>

@@ -78,7 +78,7 @@ for t in land water; do
 done
 
 if [ "$srid" = "3857" ]; then
-    create_shape_from_pg simplified-land-polygons-split-${srid} simplified_land_polygons simplified_land_polygons
+    create_shape_from_pg simplified-land-polygons-complete-${srid} simplified_land_polygons simplified_land_polygons
     create_shape_from_pg simplified-water-polygons-split-${srid} simplified_water_polygons simplified_water_polygons
 fi
 

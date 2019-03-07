@@ -294,8 +294,8 @@ mkshape 3857 land-polygons-split-3857             land_polygons
 mkshape 4326 water-polygons-split-4326            water_polygons
 mkshape 3857 water-polygons-split-3857            water_polygons
 
-mkshape 3857 simplified-land-polygons-split-3857  simplified_land_polygons
-mkshape 3857 simplified-water-polygons-split-3857 simplified_water_polygons
+mkshape 3857 simplified-land-polygons-complete-3857 simplified_land_polygons
+mkshape 3857 simplified-water-polygons-split-3857   simplified_water_polygons
 
 date $iso_date
 

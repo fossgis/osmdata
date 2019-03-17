@@ -228,6 +228,8 @@ div#fossgis-box {
 div#fossgis-box img {
     width: 95px;
     height: 30px;
+    position: absolute;
+    margin-left: 3px;
 }
 
 .right {

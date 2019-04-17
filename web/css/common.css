@@ -379,6 +379,7 @@ div#map {
     width: 100%;
     border: 1px solid #a0a0a0;
     border-radius: 3px;
+    background-color: #000000;
 }
 
 div#controls {

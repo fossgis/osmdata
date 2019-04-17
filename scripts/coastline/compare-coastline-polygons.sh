@@ -55,7 +55,7 @@ fi
 for img in good new diff; do
     mkdir -p $WEBDIR/$img
     if [ -e $DIR/mask-$img.tiff ]; then
-        gdal2tiles.py --webviewer none $DIR/mask-$img.tiff $WEBDIR/$img
+        gdal2tiles.py --webviewer none -z 0-6 $DIR/mask-$img.tiff $WEBDIR/$img
     fi
 done
 

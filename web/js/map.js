@@ -1,16 +1,17 @@
 
+var map;
+
 function open_layer(name) {
     return new ol.layer.Tile({
         source: new ol.source.XYZ({
             url: '/d/coastline/' + name + '/{z}/{x}/{-y}.png',
             minZoom: 1,
-            maxZoom: 5,
+            maxZoom: 6,
             attributions: 'Data by <a href="https://openstreetmap.org/">OpenStreetMap</a>, under <a href="https://www.openstreetmap.org/copyright">ODbL</a>.',
             wrapX: false
         }),
         type: 'base',
-        title: name,
-        opacity: 0.5
+        title: name
     });
 }
 
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             center: ol.proj.transform([0.0, 20.0], 'EPSG:4326', 'EPSG:3857'),
             zoom: 2,
             minZoom: 1,
-            maxZoom: 5
+            maxZoom: 6
         })
     });
 

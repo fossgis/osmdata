@@ -13,18 +13,21 @@ efficient plain color rendering at low zoom levels with less styling limitations
 
 <h2>Description</h2>
 
-<p>These files are generated from the OpenStreetMap data of inland surface water and the
-<a href="/data/water-polygons.html">coastline water polygons</a>.  The
-<a href="/processing/water.html">process used to generate these files</a> produces both a raster
-and a polygon vector representation.  Here you can find the polygon version, the raster
-files are available on a <a href="/data/water-reduced-raster.html">separate page</a>.</p>
+<p>These files are generated from the OpenStreetMap data of inland surface
+water and the <a href="/data/water-polygons.html">coastline water polygons</a>.
+The <a href="/processing/water.html">process used to generate these files</a>
+produces both a raster and a polygon vector representation.  Here you can find
+the polygon version, the raster files are available on a <a
+href="/data/water-reduced-raster.html">separate page</a>.</p>
 
-<p>This process is specific to the map projection used as well as the rendering resolution -
-currently this is available only in <a href="/info/projections.html#mercator">Mercator</a> projection
-and for Mercator zoom levels 0 to 6 at a resolution of 256&times;256 pixel per tile.</p>
+<p>This process is specific to the map projection used as well as the rendering
+resolution - currently this is available only in <a
+href="/info/projections.html#mercator">Mercator</a> projection and for Mercator
+zoom levels 0 to 6 at a resolution of 256&times;256 pixel per tile.</p>
 
-<p>Polygons are split according to the tile division sceme and feature attributes indicating
-the x, y and z coordinate of the tile they are meant for.</p>
+<p>Polygons are split according to the tile division scheme and feature
+attributes indicating the x, y and z coordinate of the tile they are meant
+for.</p>
 
 <h2>Variants</h2>
 
@@ -58,9 +61,9 @@ with an outline.</p>
 <h2>Download</h2>
 
 <table class="download">
-<%= download('ocean-polygons-reduced-3857.zip', 'Shapefile', 'Mercator', 'Ocean polygons') %>
-<%= download('lakes-polygons-reduced-3857.zip', 'Shapefile', 'Mercator', 'Lake polygons') %>
-<%= download('river-polygons-reduced-3857.zip', 'Shapefile', 'Mercator', 'River polygons') %>
+{% include download file='ocean-polygons-reduced-3857.zip' format='Shapefile' proj='Mercator' desc='Ocean polygons' %}
+{% include download file='lakes-polygons-reduced-3857.zip' format='Shapefile' proj='Mercator' desc='Lake polygons'  %}
+{% include download file='river-polygons-reduced-3857.zip' format='Shapefile' proj='Mercator' desc='River polygons' %}
 </table>
 
 {% include license-odbl.html %}

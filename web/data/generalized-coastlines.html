@@ -8,23 +8,26 @@ title: Generalized coastlines
 
 <h1>Generalized coastlines</h1>
 
-<p>Linestrings of coastlines as well as land and water polygons generalized for
+<p>Linestrings of coastlines plus land and water polygons generalized for
 rendering well readable maps at low zoom levels. Small details have been
 removed while maintaining and enlarging key features.</p>
 
 <h2>Description</h2>
 
-<p>The <a href="/data/coast.html">original OpenStreetMap coastline data</a> contains a lot of detail that badly
-affects readability of maps at coarse scales.  In the files available here the geometries
-have been generalized to remove small details unnecessary for rendering at these
-levels.  <a href="/processing/generalization.html">Learn more about coastline generalization...</a></p>
+<p>The <a href="/data/coast.html">original OpenStreetMap coastline data</a>
+contains a lot of detail that badly affects readability of maps at coarse
+scales.  In the files available here the geometries have been generalized to
+remove small details unnecessary for rendering at these levels. <a
+href="/processing/generalization.html">Learn more about coastline
+generalization...</a></p>
 
-<p>Generalization is specific for the map projection used - currently this is available
-only in <a href="/info/projections.html#mercator">Mercator</a> projection.</p>
+<p>Generalization is specific for the map projection used - currently this is
+available only in <a href="/info/projections.html#mercator">Mercator</a>
+projection.</p>
 
-<p>Note geometries in these files extend beyond the limits of the projection in x-direction
-to allow seamless rendering of maps.  As a result these files cannot be reprojected into other
-coordinate systems.</p>
+<p>Note geometries in these files extend beyond the limits of the projection in
+x-direction to allow seamless rendering of maps.  As a result these files
+cannot be reprojected into other coordinate systems.</p>
 
 <h2>Variants</h2>
 
@@ -43,9 +46,9 @@ the target zoom levels. The coastlines match the land polygons.</p>
 <h2>Download</h2>
 
 <table class="download">
-<%= download('coastlines-generalized-3857.zip',     'Shapefile', 'Mercator', 'coastlines generalized for z=1-8') %>
-<%= download('land-polygons-generalized-3857.zip',  'Shapefile', 'Mercator', 'land polygons generalized for z=1-8') %>
-<%= download('water-polygons-generalized-3857.zip', 'Shapefile', 'Mercator', 'water polygons generalized for z=1-8') %>
+{% include download file='coastlines-generalized-3857.zip'     format='Shapefile' proj='Mercator' desc='coastlines generalized for z=1-8' %}
+{% include download file='land-polygons-generalized-3857.zip'  format='Shapefile' proj='Mercator' desc='land polygons generalized for z=1-8' %}
+{% include download file='water-polygons-generalized-3857.zip' format='Shapefile' proj='Mercator' desc='water polygons generalized for z=1-8' %}
 </table>
 
 {% include license-cc-by-sa.html %}

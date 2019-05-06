@@ -62,9 +62,9 @@ above the rivers and the ocean above the lakes.</p>
 <h2>Download</h2>
 
 <table class="download">
-<%= download('ocean-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'Ocean raster masks') %>
-<%= download('lakes-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'Lake raster masks') %>
-<%= download('river-raster-reduced-3857.zip', 'geotiff', 'Mercator', 'River raster masks') %>
+{% include download file='ocean-raster-reduced-3857.zip' format='geotiff' proj='Mercator' desc='Ocean raster masks' %}
+{% include download file='lakes-raster-reduced-3857.zip' format='geotiff' proj='Mercator' desc='Lake raster masks'  %}
+{% include download file='river-raster-reduced-3857.zip' format='geotiff' proj='Mercator' desc='River raster masks' %}
 </table>
 
 {% include license-odbl.html %}

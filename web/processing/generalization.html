@@ -24,13 +24,13 @@ is widely used in digital map production.</p>
 
 <h2>Generalized coastlines</h2>
 
-<p>OpenStreetMapData.com provides a generalized version of the
+<p>We provide a generalized version of the
 <a href="/processing/coastline.html">OpenStreetMap coastlines</a> for use in web
 maps in Mercator projection.  The coastline is usually the most important
-element of maps at the lowest zoom levels so generalization in most important
+element of maps at the lowest zoom levels so generalization is most important
 here.</p>
 
-<p>The technique used for that is a raster-based process implemented in the <a
+<p>The technique used is a raster-based process implemented in the <a
 href="https://github.com/imagico/coastline_gen">coastline_gen</a> tool. It
 ensures that straits and land bridges are properly represented at the low
 resolutions. Different levels of generalization are produced for the different
@@ -43,12 +43,13 @@ zoom levels up to z=8.</p>
 <img class="left frame" src="/img/generalization_z3.png" width="154" height="173" title="Generalized coastline at z=3" />
 </p>
 
-<p>In contrast to the original coastline data two further preprocessing steps exist:</p>
+<p>After the original coastline data processing two further steps are used:</p>
 
 <ul>
-<li>The lakes currently tagged <tt>natural=coastline</tt> have been removed.</li>
-<li>Some marine coastal water areas, primarily at the mouths of rivers, that are not included
-in the coastline in OpenStreetMap are added based on the <tt>maritime=yes</tt> tag.</li>
+<li>Any lakes tagged <tt>natural=coastline</tt> will be removed.</li>
+<li>Some marine coastal water areas, primarily at the mouths of rivers, that
+are not included in the coastline in OpenStreetMap are added based on the
+<tt>maritime=yes</tt> tag.</li>
 </ul>
 
 <h2>Rendering example</h2>

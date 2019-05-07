@@ -4,4 +4,6 @@
             Projection: <a href="/info/projections.html#{{ include.proj.downcase }}">{{ include.proj }}</a><br/>
             {{ include.desc }}
     </td>
+    <td id="last-change-{{ include.file }}"></td>
+    <script>get_file_change_date('{{ include.file }}');</script>
 </tr>

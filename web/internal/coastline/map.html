@@ -1,27 +1,22 @@
 ---
-layout: default
+layout: nowrap
 title: Internal coastline map
 openlayers: true
 js: map
 ---
-<p><a href="/internal/">Internal</a> : Coastline</p>
-
-<h1>Internal coastline map</h1>
-
-<p><a href="map.html">Show full screen map</a><p>
-
 <div id="controls">
-    <div class="box-slide">
+    <span class="box-slide">
         <input id="slide-good" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('good', this.value)">
         Good data - <span id="tstamp-good"></span>
-    </div>
-    <div class="box-slide">
+    </span>
+    <span class="box-slide">
         <input id="slide-new" type="range" min="0" max="1" step="0.01" value="0.05" onchange="update_opacity('new', this.value)">
         New data - <span id="tstamp-new"></span>
-    </div>
-    <div class="box-slide">
+    </span>
+    <span class="box-slide">
         <input id="slide-diff" type="range" min="0" max="1" step="0.01" value="1.0" onchange="update_opacity('diff', this.value)">
         Diff
-    </div>
+    </span>
+    <span><a href="index.html">Disable full screen map</a><span>
 </div>
 <div id="map"></div>

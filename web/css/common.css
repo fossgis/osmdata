@@ -387,18 +387,20 @@ div#main div#map {
 }
 
 div#controls {
-    background-color: #f0f0f0;
-    border-radius: 3px;
-    padding: 6px;
+    width: 100%;
+}
+
+div#controls div {
+    margin-right: 30px;
     float: left;
 }
 
 div#main div#controls {
-    width: 400px;
-}
-
-div#controls span {
-    padding-right: 20px;
+    width: 500px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    padding: 6px;
+    float: left;
 }
 
 div#controls input {

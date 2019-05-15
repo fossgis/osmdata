@@ -1,4 +1,10 @@
+#!/bin/sh
+
 # /etc/cron.daily/acmetool
 
-acmetool status >/var/log/acmetool/cron.log 2>&1 && acmetool --batch --xlog.severity=info >>/var/log/acmetool/cron.log 2>&1
+echo "Status:"
+acmetool status >/var/log/acmetool/cron.log 2>&1
+
+echo "Updating..."
+acmetool reconcile --batch --xlog.severity=debug >>/var/log/acmetool/cron.log 2>&1
 

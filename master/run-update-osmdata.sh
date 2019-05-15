@@ -52,7 +52,7 @@ sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 # The new server takes a while to be initialized even after the hcloud
 # command returns. So to make sure we have a system we can ssh to, we wait
 # a bit here.
-sleep 180
+sleep 240
 
 # Some packages are installed from Debian backports, because we need the
 # newer versions. This is done here instead of through the cloud-init setup

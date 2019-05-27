@@ -33,6 +33,11 @@ $MASTER/create-host-keys.sh
 
 # -- Web setup --
 
+for i in diff good new; do
+    ln -s /data/compare/mask-$i.tiff /data/web/coastline/mask-$i.tiff
+done
+ln -s /data/osmi/osmi.tar.bz2 /data/web/coastline/osmi.tar.bz2
+
 $MASTER/build-web.sh
 
 # -- SSH setup --

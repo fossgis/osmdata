@@ -82,6 +82,8 @@ if [ "${jobs[coastline]}" = "1" ]; then
     update_job coastline
     scp robot@${IP}:data/coastline/osmi.tar.bz2 /data/osmi/
     scp robot@${IP}:data/coastline/osmi/\*.json.gz /data/err/
+    sync
+    mv /data/osmi/osmi.tar.bz2 /data/web/coastline/
 fi
 
 if [ "${jobs[icesheet]}" = "1" ]; then

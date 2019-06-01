@@ -76,6 +76,7 @@ update_job() {
 
     echo "Copying results of $job job to master..."
     scp robot@${IP}:data/$job/results/\*.zip /data/new/
+    sync
 }
 
 if [ "${jobs[coastline]}" = "1" ]; then

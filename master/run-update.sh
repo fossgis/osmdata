@@ -32,25 +32,34 @@ date
 if [ "x$1" = "x-p" ]; then
     shift
 else
+    echo "Running planet update..."
     ~/osmdata/master/run-update-planet.sh </dev/null
 fi
 
 date
 
+echo "Running osmdata update..."
 ~/osmdata/master/run-update-osmdata.sh $* </dev/null
+
+sync
 
 date
 
 if [ -e /data/good/land-polygons-split-3857.zip ]; then
+    echo "Found good land-polygons-split-3857.zip, comparing new one with it..."
     if ~/osmdata/scripts/coastline/compare-coastline-polygons.sh /data/compare /data/new/land-polygons-split-3857.zip; then
+        echo "New one is okay, use it..."
         mv /data/new/* /data/good/
+        sync
         cp /data/good/* /data/new/
+        sync
     fi
 fi
 
 #------------------------------------------------------------------------------
 
 # Remove old log files.
+echo "Removing old log files..."
 find ~/log -mtime +28 -type f -name 'run-*.log' -delete
 
 date

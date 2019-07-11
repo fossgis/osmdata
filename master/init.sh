@@ -14,13 +14,12 @@ BIN=/usr/local/bin
 
 # -- Install Debian packages --
 
-echo "deb http://deb.debian.org/debian stretch-backports main" >/etc/apt/sources.list.d/backports.list
-
 apt-get update -y
 
 apt-get dist-upgrade -u -y
 
 apt-get install -y \
+    acmetool \
     apache2 \
     bc \
     cimg-dev \
@@ -30,9 +29,12 @@ apt-get install -y \
     jekyll \
     jq \
     libgdal-dev \
+    libosmium2-dev \
     libproj-dev \
     make \
+    osmium-tool \
     python-gdal \
+    python3-pyosmium \
     rsync \
     spatialite-bin \
     sqlite3 \
@@ -40,12 +42,6 @@ apt-get install -y \
     unzip \
     zip \
     zsh
-
-apt-get -t stretch-backports install -y \
-    acmetool \
-    libosmium2-dev \
-    osmium-tool \
-    python3-pyosmium
 
 apt-get clean
 

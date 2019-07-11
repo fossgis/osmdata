@@ -22,7 +22,7 @@ hcloud server create \
     --name osmdata \
     --location nbg1 \
     --type cx11 \
-    --image debian-9 \
+    --image debian-10 \
     --ssh-key admin
 ```
 

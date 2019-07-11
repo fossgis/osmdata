@@ -19,7 +19,7 @@ hcloud server create \
     --name $SERVER \
     --location nbg1 \
     --type $STYPE \
-    --image debian-9 \
+    --image debian-10 \
     --ssh-key admin \
     --user-data-from-file ~/osmdata/servers/$SERVER.yml \
     --user-data-from-file ~/users.yml \
@@ -36,13 +36,6 @@ sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 # command returns. So to make sure we have a system we can ssh to, we wait
 # a bit here.
 sleep 180
-
-# Some packages are installed from Debian backports, because we need the
-# newer versions. This is done here instead of through the cloud-init setup
-# in ~/osmdata/servers/$SERVER.yml, because we can't tell cloud-init to use
-# the packages from backports.
-ssh robot@${IP} sudo apt-get -y -t stretch-backports install \
-    osmcoastline osmium-tool python3-pyosmium
 
 ssh robot@${IP} mkdir planet
 scp osmdata/scripts/planet/* robot@${IP}:planet/

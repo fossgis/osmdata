@@ -1,10 +1,5 @@
 #cloud-config
 
-apt:
-    sources:
-        backports:
-            source: "deb http://ftp.debian.org/debian stretch-backports main"
-
 package_update: true
 
 package_upgrade: true
@@ -14,6 +9,9 @@ packages:
     - gdal-bin
     - git
     - jq
+    - osmcoastline
+    - osmium-tool
+    - python3-pyosmium
     - rsync
     - spatialite-bin
     - sqlite3

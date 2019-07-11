@@ -33,6 +33,7 @@ $MASTER/create-host-keys.sh
 
 # -- Web setup --
 
+mkdir /data/web/coastline
 for i in diff good new; do
     ln -s /data/compare/mask-$i.tiff /data/web/coastline/mask-$i.tiff
 done

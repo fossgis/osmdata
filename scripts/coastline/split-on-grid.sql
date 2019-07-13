@@ -40,7 +40,7 @@ INSERT INTO polygons_sub (geom)
 
 CREATE INDEX polygons_sub_geom_idx ON polygons_sub USING GIST (geom);
 
-SELECT 'sudivide polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
+SELECT 'subdivide polygons', date_trunc('second', now() - :'last_time'), date_trunc('second', now() - :'start_time');
 
 -- ------------------------------------------
 

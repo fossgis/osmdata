@@ -29,4 +29,5 @@ mounts:
 runcmd:
     - [ systemctl, stop, postgresql ]
     - [ systemctl, disable, postgresql ]
+    - [ ldconfig ]
 

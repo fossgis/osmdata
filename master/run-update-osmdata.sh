@@ -49,10 +49,10 @@ echo $IP
 
 sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
-# The new server takes a while to be initialized even after the hcloud
-# command returns. So to make sure we have a system we can ssh to, we wait
-# a bit here.
-sleep 240
+echo "Waiting for system to become ready..."
+sleep 60
+ssh -o ConnectTimeout=300 robot@${IP} cloud-init status --wait
+echo "System initialized."
 
 update_job() {
     local job=$1

@@ -38,7 +38,7 @@ ssh -o ConnectTimeout=300 robot@${IP} cloud-init status --wait
 echo "System initialized."
 
 ssh robot@${IP} mkdir planet
-scp osmdata/scripts/planet/* robot@${IP}:planet/
+scp ~/osmdata/scripts/planet/* robot@${IP}:planet/
 
 ssh robot@${IP} planet/update.sh
 ssh robot@${IP} sudo umount /mnt

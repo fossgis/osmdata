@@ -35,7 +35,7 @@ osmium add-locations-to-ways \
     --keep-untagged-nodes \
     --index-type=dense_mmap_array \
     --fsync \
-    --output=$NEW_LOW_PLANET $PLANET
+    --output=$NEW_LOW_PLANET $PLANET \
     && mv $NEW_LOW_PLANET $LOW_PLANET
 
 date $iso_date

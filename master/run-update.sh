@@ -38,6 +38,9 @@ fi
 
 date
 
+#echo "Running low-planet update..."
+#~/osmdata/master/run-update-low-planet.sh $* </dev/null
+
 echo "Running osmdata update..."
 ~/osmdata/master/run-update-osmdata.sh $* </dev/null
 

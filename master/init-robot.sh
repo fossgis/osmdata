@@ -19,6 +19,14 @@ cd tippecanoe
 make
 cd ~
 
+git clone https://github.com/osmcode/osm-data-anomaly-detection
+cd osm-data-anomaly-detection
+mkdir build
+cd build
+cmake ..
+make
+cd ~
+
 # -- Log --
 
 mkdir -p ~/log

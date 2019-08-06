@@ -23,6 +23,7 @@ apt-get install -y \
     apache2 \
     bc \
     cimg-dev \
+    cmake \
     g++ \
     gdal-bin \
     git \

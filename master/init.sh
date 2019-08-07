@@ -37,6 +37,8 @@ apt-get install -y \
     python-gdal \
     python3-pyosmium \
     rsync \
+    ruby-json \
+    ruby-sqlite3 \
     spatialite-bin \
     sqlite3 \
     tmux \
@@ -77,7 +79,7 @@ umount $MNT
 mkdir -p /srv/www/osmdata
 chown robot:robot /srv/www/osmdata
 
-for dir in good new compare err osmi web; do
+for dir in good new compare err osmi web anomalies; do
     mkdir -p /data/$dir
     chown robot:robot /data/$dir
 done

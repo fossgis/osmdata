@@ -44,6 +44,9 @@ date
 echo "Running osmdata update..."
 ~/osmdata/master/run-update-osmdata.sh $* </dev/null
 
+#echo "Running anomalies update..."
+#~/osmdata/master/run-update-anomalies.sh $* </dev/null
+
 sync
 
 date

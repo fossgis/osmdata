@@ -1,0 +1,22 @@
+#cloud-config
+
+package_update: true
+
+package_upgrade: true
+
+packages:
+    - bc
+    - git
+    - jq
+    - osmium-tool
+    - python-gdal
+    - python3-pyosmium
+    - rsync
+    - spatialite-bin
+    - sqlite3
+    - unzip
+    - zip
+
+mounts:
+    - [ sdb, /mnt ]
+

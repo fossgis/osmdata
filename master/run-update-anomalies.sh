@@ -36,7 +36,7 @@ sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
 echo "Waiting for system to become ready..."
 sleep 60
-ssh -o ConnectTimeout=300 robot@${IP} cloud-init status --wait
+ssh -o ConnectTimeout=600 robot@${IP} cloud-init status --wait
 echo "System initialized."
 
 update_anomalies() {

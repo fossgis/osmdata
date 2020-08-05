@@ -24,8 +24,11 @@ set -e
 iso_date='+%Y-%m-%dT%H:%M:%S'
 STARTTIME=`date $iso_date`
 LOGFILE=~/log/run-$STARTTIME.log
+LOCK_FILE=~/log/running
 
 exec >$LOGFILE 2>&1
+
+echo $iso_date >$LOCK_FILE
 
 date
 
@@ -61,6 +64,8 @@ if [ -e /data/good/land-polygons-split-3857.zip ]; then
         sync
     fi
 fi
+
+rm -f $LOCK_FILE
 
 #------------------------------------------------------------------------------
 

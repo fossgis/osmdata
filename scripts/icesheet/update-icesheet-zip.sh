@@ -18,7 +18,7 @@ cd $DATADIR
 RESULTS=$DATADIR/results
 mkdir -p $RESULTS
 
-url_prefix='http://openstreetmapdata.com/data'
+url_prefix='https://osmdata.openstreetmap.de/data'
 
 for SHAPEDIR in antarctica-icesheet-* ; do
     test -d $SHAPEDIR || continue

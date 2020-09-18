@@ -249,7 +249,7 @@ mkshape() {
 
     local CONTENT URL
 
-    local url_prefix='http://openstreetmapdata.com/data'
+    local url_prefix='https://osmdata.openstreetmap.de/data'
 
     if [ "$layer" = 'land_polygons' ]; then
         if [[ $name = *split* ]]; then

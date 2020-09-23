@@ -38,6 +38,8 @@ gdal_rasterize -q --config GDAL_CACHEMAX 1024 "$DIR/land-polygons-split-3857" -l
 rm -f $DIR/mask-new.tiff
 ln -s $DIR/mask-$STARTTIME_COMPACT.tiff $DIR/mask-new.tiff
 
+rm -fr $DIR/land-polygons-split-3857
+
 #------------------------------------------------------------------------------
 
 # generate a "diff" image for human consumption

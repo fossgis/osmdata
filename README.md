@@ -20,7 +20,7 @@ The icesheet scripts are based on https://github.com/imagico/icesheet_proc.
 ## Public server
 
 A server running this code and offering the results for download to the general
-public will be available shortly.
+public is at https://osmdata.openstreetmap.de/ .
 
 ## Overview
 

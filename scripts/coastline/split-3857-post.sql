@@ -42,7 +42,7 @@ INSERT INTO simplified_water_polygons (x, y, geom)
         FROM grid_3857
             WHERE ARRAY[x, y] NOT IN (SELECT DISTINCT ARRAY[x, y] FROM land_polygons_grid_3857_union);
 
-ALTER TABLE simplified_water_polygons DROP COLUMN x, DROP COLUMN y;
+-- ALTER TABLE simplified_water_polygons DROP COLUMN x, DROP COLUMN y;
 
 CREATE INDEX simplified_water_polygons_geom_idx ON simplified_water_polygons USING GIST (geom);
 

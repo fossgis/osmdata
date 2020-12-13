@@ -73,7 +73,7 @@ create_shape land-polygons-complete-${srid} land_polygons $DATADIR/coastlines-co
 create_shape coastlines-split-${srid} lines $DATADIR/coastlines-split-${srid}.db lines
 
 for t in land water; do
-    psql -c "ALTER TABLE ${t}_polygons_grid_${srid} DROP COLUMN x, DROP COLUMN y;"
+#    psql -c "ALTER TABLE ${t}_polygons_grid_${srid} DROP COLUMN x, DROP COLUMN y;"
     create_shape_from_pg ${t}-polygons-split-${srid} ${t}_polygons ${t}_polygons_grid_${srid}
 done
 

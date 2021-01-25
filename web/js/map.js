@@ -22,7 +22,7 @@ var layers = {
 };
 
 function update_opacity(name, value) {
-    layers[name].setOpacity(value);
+    layers[name].setOpacity(parseInt(value));
 }
 
 document.addEventListener('DOMContentLoaded', function() {

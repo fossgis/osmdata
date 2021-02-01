@@ -19,9 +19,9 @@ apt-get update -y
 apt-get dist-upgrade -u -y
 
 apt-get install -y \
-    acmetool \
     apache2 \
     bc \
+    certbot \
     cimg-dev \
     cmake \
     g++ \
@@ -107,13 +107,24 @@ done
 # -- Install crontabs --
 
 cp /home/robot/osmdata/master/crontab-robot /etc/cron.d/robot
-cp /home/robot/osmdata/master/crontab-acmetool /etc/cron.daily/
+
+
+# -- Letsencrypt setup --
+
+mkdir -p /var/lib/letsencrypt/webroot/
+mkdir -p /etc/letsencrypt/renewal-hooks/post/
+
+cp $REPOSITORY/master/restart-apache2 /etc/letsencrypt/renewal-hooks/post/
+chmod a+x /etc/letsencrypt/renewal-hooks/post/restart-apache2
 
 
 # -- Apache setup --
 
 cp $REPOSITORY/master/apache.conf /etc/apache2/sites-available/000-default.conf
 cp $REPOSITORY/master/apache-ssl.conf /etc/apache2/sites-available/000-default-ssl.conf
+
+cp $REPOSITORY/master/acme-challenge.conf /etc/apache2/conf-available/
+ln -s ../conf-available/acme-challenge.conf /etc/apache2/conf-enabled/acme-challenge.conf
 
 a2dismod status
 a2enmod headers

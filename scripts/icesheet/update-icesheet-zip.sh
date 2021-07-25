@@ -67,7 +67,7 @@ for SHAPEDIR in antarctica-icesheet-* ; do
         URL=icesheet-polygons
     fi
 
-    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >$SHAPEDIR/README
+    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >$SHAPEDIR/README
     rm -f $SHAPEDIR.zip.new
     zip $SHAPEDIR.zip.new $SHAPEDIR/*
     mv $SHAPEDIR.zip.new $SHAPEDIR.zip

@@ -272,7 +272,7 @@ mkshape() {
         URL='coastlines'
     fi
 
-    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl \
+    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl \
         | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >$shapedir/README.txt
 
     rm -f $shapedir.zip.new

@@ -158,7 +158,7 @@ SELECT COUNT(*)
     FROM noice_outline
     WHERE ST_Length(noice_outline.GEOMETRY) > $SPLIT_SIZE AND noice_outline.iteration = ($CNT + 1);" | spatialite -batch -bail -echo "$DB" | tail -n 1 > "$DATADIR/cnt.txt"
 
-    XCNT=`cat $DATADIR/cnt.txt | xargs`
+    XCNT=$(cat $DATADIR/cnt.txt | xargs)
     echo "--- iteration $CNT ($XCNT) ---"
     CNT=$((CNT + 1))
 done

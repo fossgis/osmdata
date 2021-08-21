@@ -22,7 +22,7 @@ fi
 set -e
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
-STARTTIME=`date $iso_date`
+STARTTIME=$(date $iso_date)
 LOGFILE=~/log/run-$STARTTIME.log
 LOCK_FILE=~/log/running
 

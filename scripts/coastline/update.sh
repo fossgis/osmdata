@@ -208,16 +208,16 @@ mkshape() {
 
     echo "mkshape $proj $shapedir $layer"
 
-    local INFO=`ogrinfo -so $shapedir/$layer.shp $layer`
+    local INFO=$(ogrinfo -so $shapedir/$layer.shp $layer)
 
-    local EXTENT=`echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-`
-    local GMTYPE=`echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' '`
-    local FCOUNT=`echo "$INFO" | grep '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' '`
+    local EXTENT=$(echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-)
+    local GMTYPE=$(echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
+    local FCOUNT=$(echo "$INFO" | grep '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' ')
 
     local XMIN YMIN XMAX YMAX dummy
 
     if [ "$proj" = "3857" ]; then
-        read XMIN YMIN dummy XMAX YMAX <<<`echo $EXTENT | tr -d '(,)'`
+        read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
 
         # this tests if the data extends beyond the 180 degree meridian
         # and adds '+over' to the projection definition in that case
@@ -227,25 +227,25 @@ mkshape() {
 
         local LON_MIN LON_MAX LAT_MIN LAT_MAX
 
-        read LON_MIN LAT_MIN <<<`echo "$XMIN $YMIN" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy`
-        read LON_MAX LAT_MAX <<<`echo "$XMAX $YMAX" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy`
+        read LON_MIN LAT_MIN <<<$(echo "$XMIN $YMIN" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
+        read LON_MAX LAT_MAX <<<$(echo "$XMAX $YMAX" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
 
-        XMIN=`echo "($XMIN+0.5)/1" | bc`
-        XMAX=`echo "($XMAX+0.5)/1" | bc`
-        YMIN=`echo "($YMIN+0.5)/1" | bc`
-        YMAX=`echo "($YMAX+0.5)/1" | bc`
+        XMIN=$(echo "($XMIN+0.5)/1" | bc)
+        XMAX=$(echo "($XMAX+0.5)/1" | bc)
+        YMIN=$(echo "($YMIN+0.5)/1" | bc)
+        YMAX=$(echo "($YMAX+0.5)/1" | bc)
 
-        local bbox=`printf '(%.3f, %.3f) - (%.3f, %.3f)' $LON_MIN $LAT_MIN $LON_MAX $LAT_MAX`
+        local bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $LON_MIN $LAT_MIN $LON_MAX $LAT_MAX)
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  Mercator projection (EPSG: 3857)\n  Extent: ($XMIN, $YMIN) - ($XMAX, $YMAX)\n  In geographic coordinates: $bbox"
     else
-        read XMIN YMIN dummy XMAX YMAX <<<`echo $EXTENT | tr -d '(,)'`
+        read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
 
-        local bbox=`printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX`
+        local bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX)
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  WGS84 geographic coordinates (EPSG: 4326)\n  Extent: $bbox"
     fi
 
-    local YEAR=`date '+%Y'`
-    local DATE=`osmium fileinfo -g header.option.osmosis_replication_timestamp $PLANET`
+    local YEAR=$(date '+%Y')
+    local DATE=$(osmium fileinfo -g header.option.osmosis_replication_timestamp $PLANET)
 
     local CONTENT URL
 

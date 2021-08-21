@@ -15,7 +15,7 @@ DIFF_MAXIMUM=0.0000015
 DIR="$1"
 WEBDIR="/data/web/coastline"
 SOURCE="$2"
-STARTTIME_COMPACT=`date '+%Y%m%dT%H%M%S'`
+STARTTIME_COMPACT=$(date '+%Y%m%dT%H%M%S')
 
 test \! -z $DIR
 test \! -z $SOURCE
@@ -79,8 +79,8 @@ fi
 
 #------------------------------------------------------------------------------
 
-DIFFERENCES=`gdal_maskcompare_wm $DIR/mask-good.tiff $DIR/mask-$STARTTIME_COMPACT.tiff 20000 | grep 'short version:'`
-DIFF_RATING=`echo "$DIFFERENCES" | cut -d ':' -f 10`
+DIFFERENCES=$(gdal_maskcompare_wm $DIR/mask-good.tiff $DIR/mask-$STARTTIME_COMPACT.tiff 20000 | grep 'short version:')
+DIFF_RATING=$(echo "$DIFFERENCES" | cut -d ':' -f 10)
 
 # check if something went wrong with maskcompare and assume error then
 if [ -z "$DIFF_RATING" ]; then

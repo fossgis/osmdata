@@ -43,7 +43,7 @@ hcloud server create \
     --user-data-from-file ~/ssh/keys.yml \
     --volume planet
 
-IP=`hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER`
+IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)
 
 echo $IP
 

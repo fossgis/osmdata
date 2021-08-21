@@ -14,7 +14,7 @@ date >>~/log/release-coastline.log
 
 cd /data/compare
 
-NEWEST=`ls mask-20* | tail -1`
+NEWEST=$(ls mask-20* | tail -1)
 
 rm -f mask-good.tiff
 ln -s $NEWEST mask-good.tiff

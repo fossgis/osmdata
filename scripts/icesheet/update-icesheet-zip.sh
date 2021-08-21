@@ -25,39 +25,39 @@ for SHAPEDIR in antarctica-icesheet-* ; do
 
     LAYERS=
 
-    for SHP in `find $SHAPEDIR -name '*.shp'` ; do
-        LN=`basename $SHP .shp`
+    for SHP in $(find $SHAPEDIR -name '*.shp') ; do
+        LN=$(basename $SHP .shp)
         echo "UTF-8" >$SHAPEDIR/$LN.cpg
 
-        INFO=`ogrinfo -so $SHP $LN`
+        INFO=$(ogrinfo -so $SHP $LN)
 
-        EXT_INFO=`echo "$INFO" | grep "^Extent: " | cut -d ":" -f 2-`
-        XMIN=`echo "$EXT_INFO" | cut -d "(" -f 2 | cut -d "," -f 1`
-        YMIN=`echo "$EXT_INFO" | cut -d "," -f 2 | cut -d ")" -f 1`
-        XMAX=`echo "$EXT_INFO" | cut -d "(" -f 3 | cut -d "," -f 1`
-        YMAX=`echo "$EXT_INFO" | cut -d "," -f 3 | cut -d ")" -f 1`
+        EXT_INFO=$(echo "$INFO" | grep "^Extent: " | cut -d ":" -f 2-)
+        XMIN=$(echo "$EXT_INFO" | cut -d "(" -f 2 | cut -d "," -f 1)
+        YMIN=$(echo "$EXT_INFO" | cut -d "," -f 2 | cut -d ")" -f 1)
+        XMAX=$(echo "$EXT_INFO" | cut -d "(" -f 3 | cut -d "," -f 1)
+        YMAX=$(echo "$EXT_INFO" | cut -d "," -f 3 | cut -d ")" -f 1)
 
-        P1=`echo "$XMIN $YMIN" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326"`
-        P2=`echo "$XMAX $YMAX" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326"`
-        LON_MIN=`echo "$P1" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p`
-        LON_MAX=`echo "$P2" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p`
-        LAT_MIN=`echo "$P1" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p`
-        LAT_MAX=`echo "$P2" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p`
+        P1=$(echo "$XMIN $YMIN" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326")
+        P2=$(echo "$XMAX $YMAX" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326")
+        LON_MIN=$(echo "$P1" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
+        LON_MAX=$(echo "$P2" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
+        LAT_MIN=$(echo "$P1" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
+        LAT_MAX=$(echo "$P2" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
 
-        XMIN=`echo "($XMIN+0.5)/1" | bc`
-        XMAX=`echo "($XMAX+0.5)/1" | bc`
-        YMIN=`echo "($YMIN+0.5)/1" | bc`
-        YMAX=`echo "($YMAX+0.5)/1" | bc`
+        XMIN=$(echo "($XMIN+0.5)/1" | bc)
+        XMAX=$(echo "($XMAX+0.5)/1" | bc)
+        YMIN=$(echo "($YMIN+0.5)/1" | bc)
+        YMAX=$(echo "($YMAX+0.5)/1" | bc)
 
-        FTYPE=`echo "$INFO" | grep "^Geometry: " | cut -d ":" -f 2- | sed "s? ??g"`
-        FCOUNT=`echo "$INFO" | grep "^Feature Count: " | cut -d ":" -f 2- | sed "s? ??g"`
+        FTYPE=$(echo "$INFO" | grep "^Geometry: " | cut -d ":" -f 2- | sed "s? ??g")
+        FCOUNT=$(echo "$INFO" | grep "^Feature Count: " | cut -d ":" -f 2- | sed "s? ??g")
 
         LAYERS="$LAYERS\n\n$LN.shp:\n\n  $FCOUNT $FTYPE features\n  Mercator projection (EPSG: 3857)\n  Extent: ($XMIN, $YMIN) - ($XMAX, $YMAX)\n  In geographic coordinates: ($LON_MIN, $LAT_MIN) - ($LON_MAX, $LAT_MAX)"
 
     done
 
-    YEAR=`date '+%Y'`
-    DATE=`date -r /mnt/data/planet/last-update +'%d %b %Y %H:%M'`
+    YEAR=$(date '+%Y')
+    DATE=$(date -r /mnt/data/planet/last-update +'%d %b %Y %H:%M')
 
     if echo "$SHAPEDIR" | grep "outline" > /dev/null ; then
         CONTENT="Antarctic icesheet outlines"

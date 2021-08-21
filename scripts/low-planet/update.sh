@@ -17,8 +17,6 @@ LOW_PLANET=$DATADIR/low-planet.osm.pbf
 
 NEW_LOW_PLANET=$DATADIR/new-low-planet.osm.pbf
 
-STARTTIME=`date $iso_date`
-
 mkdir -p $DATADIR
 
 date $iso_date

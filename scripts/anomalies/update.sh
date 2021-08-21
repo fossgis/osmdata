@@ -17,8 +17,6 @@ ANOMALDIR=/mnt/data/anomalies
 PLANET=$PLANETDIR/planet.osm.pbf
 LOW_PLANET=$PLANETDIR/low-planet.osm.pbf
 
-STARTTIME=`date $iso_date`
-
 mkdir -p $DATADIR
 
 date $iso_date

@@ -25,8 +25,6 @@ NEW_ANT=$DATADIR/new-antarctica.osm.pbf
 ANT_COASTLINES=$DATADIR/antarctica-coastlines.osm.pbf
 NEW_ANT_COASTLINES=$DATADIR/new-antarctica-coastlines.osm.pbf
 
-STARTTIME=`date $iso_date`
-
 mkdir -p $DATADIR
 
 rm -f $OLD_PLANET

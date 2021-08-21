@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  create-host-keys.sh
 #
 
-set -e
+set -euo pipefail
 set -x
 
 DIR=~/ssh

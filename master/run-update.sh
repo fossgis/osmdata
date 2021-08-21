@@ -14,12 +14,12 @@
 #  run-update.sh coastline icesheet -- Update planet, run coastline and icesheet jobs
 #
 
+set -euo pipefail
+
 if [ "$USER" != "robot" ]; then
     echo "Must be run as user robot"
     exit 1
 fi
-
-set -e
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
 STARTTIME=$(date $iso_date)

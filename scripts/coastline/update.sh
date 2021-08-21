@@ -5,6 +5,9 @@
 #
 #------------------------------------------------------------------------------
 
+set -euo pipefail
+set -x
+
 DATADIR=/home/robot/data/coastline
 PLANETDIR=/mnt/data/planet
 
@@ -17,9 +20,6 @@ COASTLINES=${PLANETDIR}/coastlines.osm.pbf
 DBFILE=$DATADIR/coastlines-debug.db
 
 #------------------------------------------------------------------------------
-
-set -e
-set -x
 
 echo "Started update-coastline"
 date $iso_date

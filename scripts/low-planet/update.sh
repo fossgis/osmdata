@@ -5,10 +5,10 @@
 #
 #------------------------------------------------------------------------------
 
-iso_date='+%Y-%m-%dT%H:%M:%S'
-
+set -euo pipefail
 set -x
-set -e
+
+iso_date='+%Y-%m-%dT%H:%M:%S'
 
 DATADIR=/mnt/data/planet
 

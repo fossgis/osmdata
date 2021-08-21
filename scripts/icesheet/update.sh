@@ -3,15 +3,15 @@
 #  icesheet/update.sh
 #
 
+set -euo pipefail
+set -x
+
 DATADIR=/home/robot/data/icesheet
 PLANETDIR=/mnt/data/planet
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
 
 export BIN="$( cd "$(dirname "$0")" ; pwd -P )"
-
-set -e
-set -x
 
 mkdir -p $DATADIR
 

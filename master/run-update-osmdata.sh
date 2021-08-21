@@ -7,6 +7,8 @@
 #  run-update-osmdata.sh coastline icesheet -- Run coastline and icesheet jobs
 #
 
+set -euo pipefail
+
 if [ "$USER" != "robot" ]; then
     echo "Must be run as user robot"
     exit 1
@@ -24,8 +26,6 @@ else
 fi
 
 echo "Running jobs: ${!jobs[@]}"
-
-set -e
 
 SERVER=update-osmdata
 

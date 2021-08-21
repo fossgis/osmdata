@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  update-icesheet-zip.sh
 #
 
+set -euo pipefail
+set -x
+
 DATADIR=/home/robot/data/icesheet
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
-
-set -e
-set -x
 
 echo "Started update-icesheet-zip.sh"
 date $iso_date

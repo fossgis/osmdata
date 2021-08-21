@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  servers2web.sh
 #
+
+set -euo pipefail
 
 exec >/srv/www/osmdata/internal/servers
 

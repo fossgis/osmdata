@@ -3,12 +3,12 @@
 #  run-update-low-planet-from-planet.sh
 #
 
+set -euo pipefail
+
 if [ "$USER" != "robot" ]; then
     echo "Must be run as user robot"
     exit 1
 fi
-
-set -e
 
 SERVER=update-low-planet
 

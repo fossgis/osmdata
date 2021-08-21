@@ -6,7 +6,7 @@
 #  created.
 #
 
-set -e
+set -euo pipefail
 set -x
 
 REPOSITORY=/home/robot/osmdata

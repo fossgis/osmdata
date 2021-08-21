@@ -3,9 +3,8 @@
 #  split.sh SRID
 #
 
+set -euo pipefail
 set -x
-
-set -e
 
 DATADIR=/home/robot/data/coastline
 

@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  release-coastline.sh
 #
+
+set -euo pipefail
 
 LOCK_FILE=~/log/running
 

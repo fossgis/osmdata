@@ -3,14 +3,14 @@
 #  run-update-anomalies.sh
 #
 
+set -euo pipefail
+
 if [ "$USER" != "robot" ]; then
     echo "Must be run as user robot"
     exit 1
 fi
 
 echo "Running jobs: anomalies"
-
-set -e
 
 SERVER=update-anomalies
 

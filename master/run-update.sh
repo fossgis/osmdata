@@ -28,7 +28,7 @@ LOCK_FILE=~/log/running
 
 exec >$LOGFILE 2>&1
 
-echo $iso_date >$LOCK_FILE
+echo "$STARTTIME" >$LOCK_FILE
 
 date
 

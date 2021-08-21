@@ -28,20 +28,20 @@ hcloud server create \
 
 IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)
 
-echo $IP
+echo "$IP"
 
 sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
 echo "Waiting for system to become ready..."
 sleep 60
-ssh -o ConnectTimeout=600 robot@${IP} cloud-init status --wait
+ssh -o ConnectTimeout=600 "robot@${IP}" cloud-init status --wait
 echo "System initialized."
 
-ssh robot@${IP} mkdir planet
-scp ~/osmdata/scripts/planet/* robot@${IP}:planet/
+ssh "robot@${IP}" mkdir planet
+scp ~/osmdata/scripts/planet/* "robot@${IP}:planet/"
 
-ssh robot@${IP} planet/update.sh
-ssh robot@${IP} sudo umount /mnt
+ssh "robot@${IP}" planet/update.sh
+ssh "robot@${IP}" sudo umount /mnt
 
 hcloud volume detach planet
 

@@ -26,7 +26,7 @@ STARTTIME=$(date $iso_date)
 LOGFILE=~/log/run-$STARTTIME.log
 LOCK_FILE=~/log/running
 
-exec >$LOGFILE 2>&1
+exec >"$LOGFILE" 2>&1
 
 echo "$STARTTIME" >$LOCK_FILE
 
@@ -42,13 +42,13 @@ fi
 date
 
 #echo "Running low-planet update..."
-#~/osmdata/master/run-update-low-planet.sh $* </dev/null
+#~/osmdata/master/run-update-low-planet.sh "$@" </dev/null
 
 echo "Running osmdata update..."
-~/osmdata/master/run-update-osmdata.sh $* </dev/null
+~/osmdata/master/run-update-osmdata.sh "$@" </dev/null
 
 #echo "Running anomalies update..."
-#~/osmdata/master/run-update-anomalies.sh $* </dev/null
+#~/osmdata/master/run-update-anomalies.sh "$@" </dev/null
 
 sync
 

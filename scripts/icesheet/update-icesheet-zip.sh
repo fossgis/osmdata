@@ -21,15 +21,15 @@ mkdir -p $RESULTS
 url_prefix='https://osmdata.openstreetmap.de/data'
 
 for SHAPEDIR in antarctica-icesheet-* ; do
-    test -d $SHAPEDIR || continue
+    test -d "$SHAPEDIR" || continue
 
     LAYERS=
 
     for SHP in $(find $SHAPEDIR -name '*.shp') ; do
-        LN=$(basename $SHP .shp)
-        echo "UTF-8" >$SHAPEDIR/$LN.cpg
+        LN=$(basename "$SHP" .shp)
+        echo "UTF-8" >"$SHAPEDIR/$LN.cpg"
 
-        INFO=$(ogrinfo -so $SHP $LN)
+        INFO=$(ogrinfo -so "$SHP" "$LN")
 
         EXT_INFO=$(echo "$INFO" | grep "^Extent: " | cut -d ":" -f 2-)
         XMIN=$(echo "$EXT_INFO" | cut -d "(" -f 2 | cut -d "," -f 1)
@@ -67,11 +67,11 @@ for SHAPEDIR in antarctica-icesheet-* ; do
         URL=icesheet-polygons
     fi
 
-    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >$SHAPEDIR/README
-    rm -f $SHAPEDIR.zip.new
-    zip $SHAPEDIR.zip.new $SHAPEDIR/*
-    mv $SHAPEDIR.zip.new $SHAPEDIR.zip
-    mv $SHAPEDIR.zip $RESULTS/$SHAPEDIR.zip
+    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >"$SHAPEDIR/README"
+    rm -f "$SHAPEDIR.zip.new"
+    zip "$SHAPEDIR.zip.new" $SHAPEDIR/*
+    mv "$SHAPEDIR.zip.new" "$SHAPEDIR.zip"
+    mv "$SHAPEDIR.zip" "$RESULTS/$SHAPEDIR.zip"
 done
 
 echo "Done."

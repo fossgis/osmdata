@@ -89,16 +89,16 @@ POINT_LAYERS="single_point_in_ring not_a_ring end_point fixed_end_point double_n
 LINE_LAYERS="direction not_a_ring not_closed overlap added_line questionable invalid"
 
 for layer in $POINT_LAYERS; do
-    ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_error_points_$layer.json.gz \
-        -select osm_id -where "error='$layer'" $OSMIDIR/error_points.shp
+    ogr2ogr -f "GeoJSON" "/vsigzip//$OSMIDIR/coastline_error_points_$layer.json.gz" \
+        -select osm_id -where "error='$layer'" "$OSMIDIR/error_points.shp"
 done
 
 for layer in $LINE_LAYERS; do
-    ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_error_lines_$layer.json.gz \
-        -select osm_id -where "error='$layer'" $OSMIDIR/error_lines.shp
+    ogr2ogr -f "GeoJSON" "/vsigzip//$OSMIDIR/coastline_error_lines_$layer.json.gz" \
+        -select osm_id -where "error='$layer'" "$OSMIDIR/error_lines.shp"
 done
 
-time ogr2ogr -f "GeoJSON" /vsigzip//$OSMIDIR/coastline_ways.json.gz $OSMIDIR/ways.shp
+time ogr2ogr -f "GeoJSON" "/vsigzip//$OSMIDIR/coastline_ways.json.gz" "$OSMIDIR/ways.shp"
 
 date $iso_date
 
@@ -113,31 +113,31 @@ run_osmcoastline_lines() {
     local srid=$1
     local file=coastlines-split-$srid
 
-    rm -f $DATADIR/$file.db.new
+    rm -f "$DATADIR/$file.db.new"
 
     osmcoastline --verbose --overwrite --no-index \
                  --output-lines --output-polygons=none \
-                 -o $DATADIR/$file.db.new \
-                 --srs=$srid --max-points=1000 --bbox-overlap=0 \
-                 $COASTLINES \
+                 -o "$DATADIR/$file.db.new" \
+                 "--srs=$srid" --max-points=1000 --bbox-overlap=0 \
+                 "$COASTLINES" \
                  && true
 
-    mv $DATADIR/$file.db.new $DATADIR/$file.db
+    mv "$DATADIR/$file.db.new" "$DATADIR/$file.db"
 }
 
 run_osmcoastline_polygons() {
     local srid=$1
     local file=coastlines-complete-$srid
 
-    rm -f $DATADIR/$file.db.new
+    rm -f "$DATADIR/$file.db.new"
 
     osmcoastline --verbose --overwrite --no-index \
-                 -o $DATADIR/$file.db.new \
-                 --srs=$srid --max-points=0 --bbox-overlap=0 \
-                 $COASTLINES \
+                 -o "$DATADIR/$file.db.new" \
+                 "--srs=$srid" --max-points=0 --bbox-overlap=0 \
+                 "$COASTLINES" \
                  && true
 
-    mv $DATADIR/$file.db.new $DATADIR/$file.db
+    mv "$DATADIR/$file.db.new" "$DATADIR/$file.db"
 }
 
 run_osmcoastline_lines 4326
@@ -182,7 +182,8 @@ pg_run_split() {
                   -o min_wal_size=80MB \
                   -o fsync=off \
                   -o synchronous_commit=off \
-                  $BIN/split.sh $srid
+                  "$BIN/split.sh" \
+                  "$srid"
 }
 
 pg_run_split 4326
@@ -208,7 +209,7 @@ mkshape() {
 
     echo "mkshape $proj $shapedir $layer"
 
-    local INFO=$(ogrinfo -so $shapedir/$layer.shp $layer)
+    local INFO=$(ogrinfo -so "$shapedir/$layer.shp" "$layer")
 
     local EXTENT=$(echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-)
     local GMTYPE=$(echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
@@ -273,11 +274,11 @@ mkshape() {
     fi
 
     sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl \
-        | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >$shapedir/README.txt
+        | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >"$shapedir/README.txt"
 
-    rm -f $shapedir.zip.new
-    (cd $DATADIR/results; zip --quiet $name.zip.new $name/*)
-    mv $shapedir.zip.new $shapedir.zip
+    rm -f "$shapedir.zip.new"
+    (cd $DATADIR/results; zip --quiet "$name.zip.new" $name/*)
+    mv "$shapedir.zip.new" "$shapedir.zip"
 }
 
 #------------------------------------------------------------------------------

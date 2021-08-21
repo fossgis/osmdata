@@ -30,22 +30,22 @@ hcloud server create \
 
 IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)
 
-echo $IP
+echo "$IP"
 
 sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
 echo "Waiting for system to become ready..."
 sleep 60
-ssh -o ConnectTimeout=600 robot@${IP} cloud-init status --wait
+ssh -o ConnectTimeout=600 "robot@${IP}" cloud-init status --wait
 echo "System initialized."
 
 update_anomalies() {
-    ssh robot@${IP} mkdir anomalies
-    scp ~/osmdata/scripts/anomalies/* robot@${IP}:anomalies/
-    scp ~/osm-data-anomaly-detection/build/src/odad-* robot@${IP}:anomalies/
+    ssh "robot@${IP}" mkdir anomalies
+    scp ~/osmdata/scripts/anomalies/* "robot@${IP}:anomalies/"
+    scp ~/osm-data-anomaly-detection/build/src/odad-* "robot@${IP}:anomalies/"
 
     echo "Running anomalies job..."
-    ssh robot@${IP} anomalies/update.sh
+    ssh "robot@${IP}" anomalies/update.sh
 }
 
 update_anomalies
@@ -54,7 +54,7 @@ RESULT=/data/anomalies
 rm -fr $RESULT/new
 mkdir -p $RESULT/new
 scp robot@${IP}:/tmp/anomalies/\* $RESULT/new
-ssh robot@${IP} sudo umount /mnt
+ssh "robot@${IP}" sudo umount /mnt
 sync
 
 hcloud volume detach planet

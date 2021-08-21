@@ -51,7 +51,7 @@ osmium tags-filter --verbose --overwrite --output=$ANT_NATURAL.osm.pbf \
                    --remove-tags $ANT \
                    a/natural!=bay,cliff,sinkhole,cave_entrance,crevasse,dune,desert,valley,volcano,coastline;
 
-osmium export --verbose --config=$BIN/osmium-export-config.json \
+osmium export --verbose "--config=$BIN/osmium-export-config.json" \
               --geometry-types=polygon --overwrite --output=$ANT_NATURAL.geojson \
               $ANT_NATURAL.osm.pbf
 
@@ -292,7 +292,7 @@ date $iso_date
 
 echo "Calling update-icesheet-zip.sh..."
 
-$BIN/update-icesheet-zip.sh
+"$BIN/update-icesheet-zip.sh"
 
 df -h
 

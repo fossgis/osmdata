@@ -69,9 +69,9 @@ chmod 600 /home/robot/.ssh/authorized_keys
 # -- Prepare planet volume --
 
 MNT=$(find /mnt -mindepth 1 -maxdepth 1 -type d)
-mkdir -p $MNT/data/planet
-chown -R robot:robot $MNT/data
-umount $MNT
+mkdir -p "$MNT/data/planet"
+chown -R robot:robot "$MNT/data"
+umount "$MNT"
 
 
 # -- Directory setup --

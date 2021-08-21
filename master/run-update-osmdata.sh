@@ -45,7 +45,7 @@ hcloud server create \
 
 IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)
 
-echo $IP
+echo "$IP"
 
 sed -e "s/^IP /${IP} /" ~/ssh/known_hosts >~/.ssh/known_hosts
 
@@ -57,11 +57,11 @@ echo "System initialized."
 update_job() {
     local job=$1
 
-    ssh robot@${IP} mkdir $job
+    ssh "robot@${IP}" mkdir $job
     scp ~/osmdata/scripts/$job/* robot@${IP}:$job/
 
     echo "Running $job job..."
-    ssh robot@${IP} $job/update.sh
+    ssh "robot@${IP}" $job/update.sh
 
     echo "Copying results of $job job to master..."
     scp robot@${IP}:data/$job/results/\*.zip /data/new/
@@ -80,8 +80,8 @@ if [ "${jobs[icesheet]}" = "1" ]; then
     update_job icesheet
 fi
 
-scp robot@${IP}:/mnt/data/planet/last-update /data/new/
-ssh robot@${IP} sudo umount /mnt
+scp "robot@${IP}:/mnt/data/planet/last-update" /data/new/
+ssh "robot@${IP}" sudo umount /mnt
 
 hcloud volume detach planet
 

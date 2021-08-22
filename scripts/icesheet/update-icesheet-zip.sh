@@ -39,10 +39,10 @@ for SHAPEDIR in antarctica-icesheet-* ; do
 
         P1=$(echo "$XMIN $YMIN" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326")
         P2=$(echo "$XMAX $YMAX" | gdaltransform -s_srs "EPSG:3857" -t_srs "EPSG:4326")
-        LON_MIN=$(echo "$P1" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
-        LON_MAX=$(echo "$P2" | cut -d " " -f 1 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
-        LAT_MIN=$(echo "$P1" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
-        LAT_MAX=$(echo "$P2" | cut -d " " -f 2 | LC_ALL=C xargs /usr/bin/printf "%.3f" $p)
+        LON_MIN=$(echo "$P1" | cut -d " " -f 1 | LC_ALL=C xargs printf "%.3f")
+        LON_MAX=$(echo "$P2" | cut -d " " -f 1 | LC_ALL=C xargs printf "%.3f")
+        LAT_MIN=$(echo "$P1" | cut -d " " -f 2 | LC_ALL=C xargs printf "%.3f")
+        LAT_MAX=$(echo "$P2" | cut -d " " -f 2 | LC_ALL=C xargs printf "%.3f")
 
         XMIN=$(echo "($XMIN+0.5)/1" | bc)
         XMAX=$(echo "($XMAX+0.5)/1" | bc)

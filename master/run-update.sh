@@ -32,7 +32,7 @@ echo "$STARTTIME" >$LOCK_FILE
 
 date
 
-if [ "x$1" = "x-p" ]; then
+if [[ $# -ge 1 && $1 == "-p" ]]; then
     shift
 else
     echo "Running planet update..."

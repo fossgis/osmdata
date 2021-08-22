@@ -16,16 +16,16 @@ fi
 
 declare -A jobs
 
-if [ -z "$1" ]; then
+if [[ $# -eq 0 ]]; then
     jobs['coastline']=1
     jobs['icesheet']=1
 else
-    for job in $*; do
+    for job in "$@"; do
         jobs[$job]=1
     done
 fi
 
-echo "Running jobs: ${!jobs[@]}"
+echo "Running jobs: ${!jobs[*]}"
 
 SERVER=update-osmdata
 

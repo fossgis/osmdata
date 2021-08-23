@@ -53,8 +53,8 @@ update_anomalies
 RESULT=/data/anomalies
 rm -fr $RESULT/new
 mkdir -p $RESULT/new
-scp robot@${IP}:/tmp/anomalies/\* $RESULT/new
-ssh "robot@${IP}" sudo umount /mnt
+scp "robot@$IP:/tmp/anomalies/*" $RESULT/new
+ssh "robot@$IP" sudo umount /mnt
 sync
 
 hcloud volume detach planet

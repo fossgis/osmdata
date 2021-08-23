@@ -209,11 +209,13 @@ mkshape() {
 
     echo "mkshape $proj $shapedir $layer"
 
-    local INFO=$(ogrinfo -so "$shapedir/$layer.shp" "$layer")
+    local INFO EXTENT GMTYPE FCOUNT
 
-    local EXTENT=$(echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-)
-    local GMTYPE=$(echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
-    local FCOUNT=$(echo "$INFO" | grep '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' ')
+    INFO=$(ogrinfo -so "$shapedir/$layer.shp" "$layer")
+
+    EXTENT=$(echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-)
+    GMTYPE=$(echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
+    FCOUNT=$(echo "$INFO" | grep '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' ')
 
     local XMIN YMIN XMAX YMAX dummy
 
@@ -226,7 +228,7 @@ mkshape() {
             sed -i -e 's/+no_defs"/+no_defs +over"/' $shapedir/$layer.prj
         fi
 
-        local LON_MIN LON_MAX LAT_MIN LAT_MAX
+        local LON_MIN LON_MAX LAT_MIN LAT_MAX bbox
 
         read LON_MIN LAT_MIN <<<$(echo "$XMIN $YMIN" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
         read LON_MAX LAT_MAX <<<$(echo "$XMAX $YMAX" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
@@ -236,7 +238,7 @@ mkshape() {
         YMIN=$(echo "($YMIN+0.5)/1" | bc)
         YMAX=$(echo "($YMAX+0.5)/1" | bc)
 
-        local bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $LON_MIN $LAT_MIN $LON_MAX $LAT_MAX)
+        bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' "$LON_MIN" "$LAT_MIN" "$LON_MAX" "$LAT_MAX")
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  Mercator projection (EPSG: 3857)\n  Extent: ($XMIN, $YMIN) - ($XMAX, $YMAX)\n  In geographic coordinates: $bbox"
     else
         read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
@@ -245,10 +247,9 @@ mkshape() {
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  WGS84 geographic coordinates (EPSG: 4326)\n  Extent: $bbox"
     fi
 
-    local YEAR=$(date '+%Y')
-    local DATE=$(osmium fileinfo -g header.option.osmosis_replication_timestamp $PLANET)
-
-    local CONTENT URL
+    local YEAR DATE CONTENT URL
+    YEAR=$(date '+%Y')
+    DATE=$(osmium fileinfo -g header.option.osmosis_replication_timestamp $PLANET)
 
     local url_prefix='https://osmdata.openstreetmap.de/data'
 

@@ -144,7 +144,7 @@ echo "Iterating outline splitting..."
 CNT=1
 XCNT=1
 while [ $XCNT -gt 0 ] ; do
-    echo "${pragmas}
+    XCNT=$(echo "${pragmas}
 INSERT INTO noice_outline (oid, iteration, GEOMETRY)
     SELECT noice_outline.oid, ($CNT + 1), CastToMultiLineString(ST_Line_Substring(noice_outline.GEOMETRY, 0.0, 0.5))
         FROM noice_outline
@@ -157,9 +157,8 @@ INSERT INTO noice_outline (oid, iteration, GEOMETRY)
 
 SELECT COUNT(*)
     FROM noice_outline
-    WHERE ST_Length(noice_outline.GEOMETRY) > $SPLIT_SIZE AND noice_outline.iteration = ($CNT + 1);" | spatialite -batch -bail -echo "$DB" | tail -n 1 > "$DATADIR/cnt.txt"
+    WHERE ST_Length(noice_outline.GEOMETRY) > $SPLIT_SIZE AND noice_outline.iteration = ($CNT + 1);" | spatialite -batch -bail -echo "$DB" | tail -n 1)
 
-    XCNT=$(cat $DATADIR/cnt.txt | xargs)
     echo "--- iteration $CNT ($XCNT) ---"
     CNT=$((CNT + 1))
 done

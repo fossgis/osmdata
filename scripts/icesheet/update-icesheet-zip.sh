@@ -25,7 +25,7 @@ for SHAPEDIR in antarctica-icesheet-* ; do
 
     LAYERS=
 
-    for SHP in $(find $SHAPEDIR -name '*.shp') ; do
+    for SHP in $(find "$SHAPEDIR" -name '*.shp') ; do
         LN=$(basename "$SHP" .shp)
         echo "UTF-8" >"$SHAPEDIR/$LN.cpg"
 
@@ -67,9 +67,9 @@ for SHAPEDIR in antarctica-icesheet-* ; do
         URL=icesheet-polygons
     fi
 
-    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >"$SHAPEDIR/README"
+    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" "$BIN/README.tmpl" | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >"$SHAPEDIR/README"
     rm -f "$SHAPEDIR.zip.new"
-    zip "$SHAPEDIR.zip.new" $SHAPEDIR/*
+    zip "$SHAPEDIR.zip.new" "$SHAPEDIR"/*
     mv "$SHAPEDIR.zip.new" "$SHAPEDIR.zip"
     mv "$SHAPEDIR.zip" "$RESULTS/$SHAPEDIR.zip"
 done

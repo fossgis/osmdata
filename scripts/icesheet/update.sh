@@ -11,7 +11,8 @@ PLANETDIR=/mnt/data/planet
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
 
-export BIN="$( cd "$(dirname "$0")" ; pwd -P )"
+export BIN
+BIN=$(cd "$(dirname "$0")" ; pwd -P)
 
 mkdir -p $DATADIR
 

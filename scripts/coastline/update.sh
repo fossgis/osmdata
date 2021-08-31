@@ -13,7 +13,8 @@ PLANETDIR=/mnt/data/planet
 
 iso_date='+%Y-%m-%dT%H:%M:%S'
 
-export BIN="$( cd "$(dirname "$0")" ; pwd -P )"
+export BIN
+BIN=$(cd "$(dirname "$0")" ; pwd -P)
 
 PLANET=${PLANETDIR}/planet.osm.pbf
 COASTLINES=${PLANETDIR}/coastlines.osm.pbf
@@ -225,7 +226,7 @@ mkshape() {
         # this tests if the data extends beyond the 180 degree meridian
         # and adds '+over' to the projection definition in that case
         if [[ $XMIN < -20037509 ]]; then
-            sed -i -e 's/+no_defs"/+no_defs +over"/' $shapedir/$layer.prj
+            sed -i -e 's/+no_defs"/+no_defs +over"/' "$shapedir/$layer.prj"
         fi
 
         local LON_MIN LON_MAX LAT_MIN LAT_MAX bbox
@@ -243,7 +244,8 @@ mkshape() {
     else
         read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
 
-        local bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX)
+        local bbox
+        bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX)
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  WGS84 geographic coordinates (EPSG: 4326)\n  Extent: $bbox"
     fi
 
@@ -274,11 +276,11 @@ mkshape() {
         URL='coastlines'
     fi
 
-    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" $BIN/README.tmpl \
+    sed -e "s?@YEAR@?${YEAR}?g;s?@URL@?${url_prefix}/${URL}.html?g;s?@DATE@?${DATE}?g;s?@CONTENT@?${CONTENT}?g" "$BIN/README.tmpl" \
         | sed "/@LAYERS@/N;s?@LAYERS@?$LAYERS?" >"$shapedir/README.txt"
 
     rm -f "$shapedir.zip.new"
-    (cd $DATADIR/results; zip --quiet "$name.zip.new" $name/*)
+    (cd $DATADIR/results; zip --quiet "$name.zip.new" "$name"/*)
     mv "$shapedir.zip.new" "$shapedir.zip"
 }
 

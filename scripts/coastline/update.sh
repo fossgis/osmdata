@@ -202,6 +202,14 @@ date $iso_date
 #
 #------------------------------------------------------------------------------
 
+# Parse extent from line like this:
+#   Extent: (-180.000000, -78.732901) - (180.000000, 83.666473)
+# into this:
+#   -180.000000 -78.732901 180.000000 83.666473
+parse_extent() {
+    sed -e 's/^.*(\([0-9.-]\+\), \([0-9.-]\+\)) - (\([0-9.-]\+\), \([0-9.-]\+\))/\1 \2 \3 \4/'
+}
+
 mkshape() {
     local proj=$1
     local name=$2
@@ -214,14 +222,14 @@ mkshape() {
 
     INFO=$(ogrinfo -so "$shapedir/$layer.shp" "$layer")
 
-    EXTENT=$(echo "$INFO" | grep '^Extent: '        | cut -d ':' -f 2-)
-    GMTYPE=$(echo "$INFO" | grep '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
-    FCOUNT=$(echo "$INFO" | grep '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' ')
+    EXTENT=$(grep <<< "$INFO" '^Extent: ')
+    GMTYPE=$(grep <<< "$INFO" '^Geometry: '      | cut -d ':' -f 2- | tr -d ' ')
+    FCOUNT=$(grep <<< "$INFO" '^Feature Count: ' | cut -d ':' -f 2- | tr -d ' ')
 
-    local XMIN YMIN XMAX YMAX dummy
+    local XMIN YMIN XMAX YMAX
+    read -r XMIN YMIN XMAX YMAX <<<"$(parse_extent <<<"$EXTENT")"
 
     if [ "$proj" = "3857" ]; then
-        read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
 
         # this tests if the data extends beyond the 180 degree meridian
         # and adds '+over' to the projection definition in that case
@@ -231,8 +239,8 @@ mkshape() {
 
         local LON_MIN LON_MAX LAT_MIN LAT_MAX bbox
 
-        read LON_MIN LAT_MIN <<<$(echo "$XMIN $YMIN" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
-        read LON_MAX LAT_MAX <<<$(echo "$XMAX $YMAX" | gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy)
+        read LON_MIN LAT_MIN <<<$(gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy <<< "$XMIN $YMIN")
+        read LON_MAX LAT_MAX <<<$(gdaltransform -s_srs 'EPSG:3857' -t_srs 'EPSG:4326' -output_xy <<< "$XMAX $YMAX")
 
         XMIN=$(echo "($XMIN+0.5)/1" | bc)
         XMAX=$(echo "($XMAX+0.5)/1" | bc)
@@ -242,8 +250,6 @@ mkshape() {
         bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' "$LON_MIN" "$LAT_MIN" "$LON_MAX" "$LAT_MAX")
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  Mercator projection (EPSG: 3857)\n  Extent: ($XMIN, $YMIN) - ($XMAX, $YMAX)\n  In geographic coordinates: $bbox"
     else
-        read XMIN YMIN dummy XMAX YMAX <<<$(echo $EXTENT | tr -d '(,)')
-
         local bbox
         bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX)
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  WGS84 geographic coordinates (EPSG: 4326)\n  Extent: $bbox"

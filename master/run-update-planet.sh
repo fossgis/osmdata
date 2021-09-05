@@ -13,7 +13,7 @@ fi
 SERVER=update-planet
 
 # cx41: 4 CPUs, 16 GB RAM, 160 GB disk
-STYPE=cpx41
+STYPE=cx41
 
 hcloud server create \
     --name $SERVER \

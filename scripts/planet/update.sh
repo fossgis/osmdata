@@ -38,7 +38,7 @@ date $iso_date
 
 echo "Updating planet file..."
 rm -f $NEW_PLANET
-export OSMIUM_POOL_THREADS=7
+export OSMIUM_POOL_THREADS=3
 /usr/lib/python3-pyosmium/pyosmium-up-to-date -v --size 5000 -o $NEW_PLANET $PLANET
 mv $PLANET $OLD_PLANET
 mv $NEW_PLANET $PLANET

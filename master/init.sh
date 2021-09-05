@@ -51,9 +51,9 @@ apt-get clean
 
 # -- Install hcloud cli command --
 
-wget --no-verbose -O /tmp/hcloud.tar.gz https://github.com/hetznercloud/cli/releases/download/v1.12.0/hcloud-linux-amd64-v1.12.0.tar.gz
+wget --no-verbose -O /tmp/hcloud.tar.gz https://github.com/hetznercloud/cli/releases/download/v1.28.1/hcloud-linux-amd64.tar.gz
 tar xCf /tmp /tmp/hcloud.tar.gz
-cp /tmp/hcloud-linux-*/bin/hcloud $BIN
+cp /tmp/hcloud $BIN
 
 
 # -- Create robot user --

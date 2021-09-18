@@ -47,7 +47,7 @@ hcloud server create \
     --user-data-from-file - \
     --volume planet
 
-IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)
+IP=$(hcloud server ip $SERVER)
 
 echo "$IP"
 

@@ -18,6 +18,3 @@ packages:
     - unzip
     - zip
 
-mounts:
-    - [ sdb, /mnt ]
-

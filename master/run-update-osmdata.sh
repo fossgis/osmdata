@@ -32,6 +32,9 @@ SERVER=update-osmdata
 # cx31: 2 CPUs, 8 GB RAM, 80 GB disk
 STYPE=cx31
 
+VOLID=$(hcloud volume describe -o json planet | jq .id)
+
+printf "#cloud-config\nmounts:\n    - [ 'ID=scsi-0HC_Volume_${VOLID}', '/mnt' ]\n" | \
 hcloud server create \
     --name $SERVER \
     --location nbg1 \
@@ -41,6 +44,7 @@ hcloud server create \
     --user-data-from-file ~/osmdata/servers/$SERVER.yml \
     --user-data-from-file ~/users.yml \
     --user-data-from-file ~/ssh/keys.yml \
+    --user-data-from-file - \
     --volume planet
 
 IP=$(hcloud server describe -o 'format={{.PublicNet.IPv4.IP}}' $SERVER)

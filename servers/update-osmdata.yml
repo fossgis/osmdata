@@ -23,9 +23,6 @@ packages:
     - unzip
     - zip
 
-mounts:
-    - [ sdb, /mnt ]
-
 runcmd:
     - [ systemctl, stop, postgresql ]
     - [ systemctl, disable, postgresql ]

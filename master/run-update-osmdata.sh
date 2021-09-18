@@ -34,7 +34,7 @@ STYPE=cx31
 
 VOLID=$(hcloud volume describe -o json planet | jq .id)
 
-printf "#cloud-config\nmounts:\n    - [ 'ID=scsi-0HC_Volume_${VOLID}', '/mnt' ]\n" | \
+printf "#cloud-config\nmounts:\n    - [ '/dev/disk/by-id/scsi-0HC_Volume_${VOLID}', '/mnt' ]\n" | \
 hcloud server create \
     --name $SERVER \
     --location nbg1 \

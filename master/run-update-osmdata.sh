@@ -74,7 +74,7 @@ update_job() {
     sync
 }
 
-if [ "${jobs[coastline]}" = "1" ]; then
+if [[ -v jobs[coastline] ]]; then
     update_job coastline
     scp "robot@$IP:data/coastline/osmi.tar.bz2" /data/osmi/
     scp -C "robot@$IP:data/coastline/osmi-coastlines.db" /data/osmi/
@@ -84,7 +84,7 @@ if [ "${jobs[coastline]}" = "1" ]; then
     mv /data/osmi/osmi-coastlines.db /data/web/coastline/
 fi
 
-if [ "${jobs[icesheet]}" = "1" ]; then
+if [[ -v jobs[icesheet] ]]; then
     update_job icesheet
 fi
 

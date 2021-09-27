@@ -34,7 +34,7 @@ apt-get install -y \
     libproj-dev \
     make \
     osmium-tool \
-    python-gdal \
+    python3-gdal \
     python3-pyosmium \
     rsync \
     ruby-json \

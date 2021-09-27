@@ -26,7 +26,7 @@ hcloud server create \
     --ssh-key admin
 ```
 
-This uses the cheapest cloud server they have which costs 2.96 EUR per month.
+This uses the cheapest cloud server they have which costs 4.15 EUR per month.
 
 * Still on your own machine, create a new volume:
 

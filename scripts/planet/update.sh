@@ -39,7 +39,7 @@ date $iso_date
 echo "Updating planet file..."
 rm -f $NEW_PLANET
 export OSMIUM_POOL_THREADS=3
-/usr/lib/python3-pyosmium/pyosmium-up-to-date -v --size 5000 -o $NEW_PLANET $PLANET
+/usr/lib/python3-pyosmium/pyosmium-up-to-date -v --size 5000 --format pbf,pbf_compression=lz4 -o $NEW_PLANET $PLANET
 mv $PLANET $OLD_PLANET
 mv $NEW_PLANET $PLANET
 
@@ -56,7 +56,7 @@ date $iso_date
 
 echo "Extracting Antarctica..."
 rm -f $NEW_ANT
-osmium extract --verbose --strategy=simple --bbox=-180,-90,180,-60 --fsync --overwrite --output=$NEW_ANT $PLANET
+osmium extract --verbose --strategy=simple --bbox=-180,-90,180,-60 --fsync --overwrite --output-format=pbf,pbf_compression=lz4 --output=$NEW_ANT $PLANET
 mv $NEW_ANT $ANT
 
 date $iso_date

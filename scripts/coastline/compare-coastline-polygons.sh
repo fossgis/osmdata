@@ -51,6 +51,7 @@ rm -f "$DIR/mask-diff.tiff"
 if [ -e "$GOOD" ]; then
     gdal_calc.py -A "$GOOD" \
                  -B "$NEW" \
+                 --quiet \
                  --NoDataValue=0 --type=Byte --co=COMPRESS=DEFLATE \
                  --outfile="$DIR/mask-diff.tiff" --calc="(A!=B)*255"
 fi

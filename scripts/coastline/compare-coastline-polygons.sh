@@ -21,7 +21,9 @@ test \! -z "$DIR"
 test \! -z "$SOURCE"
 
 GOOD=$DIR/mask-good.tiff
+GOODCOG=$DIR/mask-good-cog.tiff
 NEW=$DIR/mask-$STARTTIME_COMPACT.tiff
+NEWCOG=$DIR/mask-$STARTTIME_COMPACT-cog.tiff
 
 rm -fr "$DIR/land-polygons-split-3857"
 
@@ -38,8 +40,13 @@ gdal_rasterize -q --config GDAL_CACHEMAX 1024 "$DIR/land-polygons-split-3857" -l
     -init 0 -burn 255 -ts 8192 8192 -ot Byte -co COMPRESS=DEFLATE \
     "$NEW"
 
+gdal_translate -of cog -co COMPRESS=LZW "$NEW" "$NEWCOG"
+
 rm -f "$DIR/mask-new.tiff"
 ln -s "$NEW" "$DIR/mask-new.tiff"
+
+rm -f "$DIR/mask-new-cog.tiff"
+ln -s "$NEWCOG" "$DIR/mask-new-cog.tiff"
 
 rm -fr "$DIR/land-polygons-split-3857"
 
@@ -104,8 +111,12 @@ fi
 #------------------------------------------------------------------------------
 
 echo "$DIFFERENCES OK" | sed "s/short version/$STARTTIME_COMPACT/" >>"$DIR/differences"
+
 rm "$GOOD"
 ln -s "mask-$STARTTIME_COMPACT.tiff" "$GOOD"
+
+rm "$GOODCOG"
+ln -s "mask-$STARTTIME_COMPACT.cog.tiff" "$GOODCOG"
 
 #------------------------------------------------------------------------------
 

@@ -44,6 +44,7 @@ $MASTER/create-host-keys.sh
 mkdir /data/web/coastline
 for i in diff good new; do
     ln -s /data/compare/mask-$i.tiff /data/web/coastline/mask-$i.tiff
+    ln -s /data/compare/mask-$i-cog.tiff /data/web/coastline/mask-$i-cog.tiff
 done
 
 $MASTER/build-web.sh

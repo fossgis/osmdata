@@ -112,10 +112,10 @@ fi
 
 echo "$DIFFERENCES OK" | sed "s/short version/$STARTTIME_COMPACT/" >>"$DIR/differences"
 
-rm "$GOOD"
+rm -f "$GOOD"
 ln -s "mask-$STARTTIME_COMPACT.tiff" "$GOOD"
 
-rm "$GOODCOG"
+rm -f "$GOODCOG"
 ln -s "mask-$STARTTIME_COMPACT.cog.tiff" "$GOODCOG"
 
 #------------------------------------------------------------------------------

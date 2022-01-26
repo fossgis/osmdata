@@ -116,7 +116,7 @@ rm -f "$GOOD"
 ln -s "mask-$STARTTIME_COMPACT.tiff" "$GOOD"
 
 rm -f "$GOODCOG"
-ln -s "mask-$STARTTIME_COMPACT.cog.tiff" "$GOODCOG"
+ln -s "mask-$STARTTIME_COMPACT-cog.tiff" "$GOODCOG"
 
 #------------------------------------------------------------------------------
 

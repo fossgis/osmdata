@@ -46,6 +46,7 @@ for i in diff good new; do
     ln -s /data/compare/mask-$i.tiff /data/web/coastline/mask-$i.tiff
     ln -s /data/compare/mask-$i-cog.tiff /data/web/coastline/mask-$i-cog.tiff
 done
+ln -s /data/compare/mask-diff.geojson /data/web/coastline/mask-diff.geojson
 
 $MASTER/build-web.sh
 

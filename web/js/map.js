@@ -25,12 +25,29 @@ function update_opacity(name, value) {
     layers[name].setOpacity(parseFloat(value));
 }
 
+function diff_vector_layer() {
+    return new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '/d/coastline/mask-diff.geojson',
+            format: new ol.format.GeoJSON()
+        }),
+        style: function (feature) {
+            return new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: '#e00000',
+                    width: 5
+                })
+            });
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     get_last_update('good', update_element_text);
     get_last_update('new', update_element_text);
 
     map = new ol.Map({
-        layers: [layers['good'], layers['new'], layers['diff']],
+        layers: [layers['good'], layers['new'], layers['diff'], diff_vector_layer()],
         target: 'map',
         controls: [new ol.control.Zoom, new ol.control.Attribution],
         view: new ol.View({

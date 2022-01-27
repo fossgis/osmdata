@@ -61,7 +61,9 @@ if [ -e "$GOOD" ]; then
                  --quiet \
                  --NoDataValue=0 --type=Byte --co=COMPRESS=DEFLATE \
                  --outfile="$DIR/mask-diff.tiff" --calc="(A!=B)*255"
-    gdal_polygonize.py "$DIR/mask-diff.tiff" "$DIR/mask-diff.geojson"
+
+    rm -f "$DIR/mask-diff.geojson"
+    gdal_polygonize.py -q "$DIR/mask-diff.tiff" "$DIR/mask-diff.geojson"
 fi
 
 #------------------------------------------------------------------------------

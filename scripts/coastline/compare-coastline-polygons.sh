@@ -123,6 +123,10 @@ ln -s "mask-$STARTTIME_COMPACT-cog.tiff" "$GOODCOG"
 
 #------------------------------------------------------------------------------
 
+ogr2ogr -f "FlatGeobuf" /data/new/coastlines.fgb /vsizip//data/new/coastlines-split-3857.zip/coastlines-split-3857/lines.shp
+
+#------------------------------------------------------------------------------
+
 # Remove old mask files. We do this here at the end, so we are sure not to
 # delete any mask files still referenced by mask-good.tiff.
 find "$DIR" -mtime +28 -type f -name 'mask-*.tiff' -delete

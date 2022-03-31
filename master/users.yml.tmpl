@@ -6,5 +6,6 @@ users:
     - name: robot
       gecos: Robot User
       shell: /bin/bash
-      sudo: ALL=(ALL) NOPASSWD:ALL
+      sudo: |
+        ALL=(ALL) NOPASSWD:ALL
       ssh-authorized-keys:

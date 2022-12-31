@@ -28,5 +28,5 @@ runcmd:
     - [ ldconfig ]
     - [ sed, -i, -e, '/deb .*backports/s/# //', '/etc/apt/sources.list' ]
     - [ apt-get, update, --quiet, --yes ]
-    - [ apt-get, install, --quiet, --yes, 'osmcoastline=2.3.1-1~bpo11+1' ]
+    - [ apt-get, install, --quiet, --yes, 'osmcoastline=2.4.0-1~bpo11+1' ]
 

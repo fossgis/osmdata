@@ -76,11 +76,9 @@ update_job() {
 
 if [[ -v jobs[coastline] ]]; then
     update_job coastline
-    scp "robot@$IP:data/coastline/osmi.tar.bz2" /data/osmi/
     scp -C "robot@$IP:data/coastline/osmi-coastlines.db" /data/osmi/
     scp "robot@$IP:data/coastline/osmi/*.json.gz" /data/err/
     sync
-    mv /data/osmi/osmi.tar.bz2 /data/web/coastline/
     mv /data/osmi/osmi-coastlines.db /data/web/coastline/
 fi
 

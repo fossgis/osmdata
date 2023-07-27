@@ -82,10 +82,6 @@ osmcoastline_ways $COASTLINES $DATADIR/coastline-ways.db
 
 ogr2ogr -f "ESRI Shapefile" -select name $OSMIDIR/ways.shp $DATADIR/coastline-ways.db ways
 
-#sqlite3 $DBFILE 'SELECT timestamp FROM meta;' | cut -d: -f1-2 >$OSMIDIR/tstamp
-
-#tar cCjf $DATADIR $DATADIR/osmi.tar.bz2 osmi
-
 cp $DBFILE $DATADIR/osmi-coastlines.db
 echo "DROP TABLE land_polygons; VACUUM;" | spatialite $DATADIR/osmi-coastlines.db
 ogr2ogr -update -f SQLite $DATADIR/osmi-coastlines.db $DATADIR/coastline-ways.db ways

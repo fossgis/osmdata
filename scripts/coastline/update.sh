@@ -88,8 +88,9 @@ tar cCjf $DATADIR $DATADIR/osmi.tar.bz2 osmi
 
 cp $DBFILE $DATADIR/osmi-coastlines.db
 echo "DROP TABLE land_polygons; VACUUM;" | spatialite $DATADIR/osmi-coastlines.db
-echo "ATTACH DATABASE '$DATADIR/coastline-ways.db' AS w; CREATE TABLE ways AS SELECT * FROM w.ways;" | spatialite $DATADIR/osmi-coastlines.db
-echo "SELECT RecoverGeometryColumn('ways', 'geometry', 4326, 'LineString');" | spatialite $DATADIR/osmi-coastlines.db
+ogr2ogr -f SQLite $DATADIR/osmi-coastlines.db $DATADIR/coastline-ways.db ways
+#echo "ATTACH DATABASE '$DATADIR/coastline-ways.db' AS w; CREATE TABLE ways AS SELECT * FROM w.ways;" | spatialite $DATADIR/osmi-coastlines.db
+#echo "SELECT RecoverGeometryColumn('ways', 'geometry', 4326, 'LineString');" | spatialite $DATADIR/osmi-coastlines.db
 
 POINT_LAYERS="single_point_in_ring not_a_ring end_point fixed_end_point double_node tagged_node"
 LINE_LAYERS="direction not_a_ring not_closed overlap added_line questionable invalid"

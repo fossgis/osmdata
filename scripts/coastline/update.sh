@@ -82,13 +82,13 @@ osmcoastline_ways $COASTLINES $DATADIR/coastline-ways.db
 
 ogr2ogr -f "ESRI Shapefile" -select name $OSMIDIR/ways.shp $DATADIR/coastline-ways.db ways
 
-sqlite3 $DBFILE 'SELECT timestamp FROM meta;' | cut -d: -f1-2 >$OSMIDIR/tstamp
+#sqlite3 $DBFILE 'SELECT timestamp FROM meta;' | cut -d: -f1-2 >$OSMIDIR/tstamp
 
-tar cCjf $DATADIR $DATADIR/osmi.tar.bz2 osmi
+#tar cCjf $DATADIR $DATADIR/osmi.tar.bz2 osmi
 
 cp $DBFILE $DATADIR/osmi-coastlines.db
 echo "DROP TABLE land_polygons; VACUUM;" | spatialite $DATADIR/osmi-coastlines.db
-ogr2ogr -f SQLite $DATADIR/osmi-coastlines.db $DATADIR/coastline-ways.db ways
+ogr2ogr -update -f SQLite $DATADIR/osmi-coastlines.db $DATADIR/coastline-ways.db ways
 
 POINT_LAYERS="single_point_in_ring not_a_ring end_point fixed_end_point double_node tagged_node"
 LINE_LAYERS="direction not_a_ring not_closed overlap added_line questionable invalid"

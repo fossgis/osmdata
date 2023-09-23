@@ -62,6 +62,9 @@ if [ -e "$GOOD" ]; then
                  --NoDataValue=0 --type=Byte --co=COMPRESS=DEFLATE \
                  --outfile="$DIR/mask-diff.tiff" --calc="(A!=B)*255"
 
+    rm -f "$DIR/mask-diff-cog.tiff"
+    gdal_translate -of cog -co COMPRESS=LZW "$DIR/mask-diff.tiff" "$DIR/mask-diff-cog.tiff"
+
     rm -f "$DIR/mask-diff.geojson"
     gdal_polygonize.py -q "$DIR/mask-diff.tiff" "$DIR/mask-diff.geojson"
 fi

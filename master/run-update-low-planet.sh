@@ -43,7 +43,7 @@ scp ~/osmdata/scripts/low-planet/* "robot@${IP}:low-planet/"
 ssh "robot@${IP}" low-planet/update.sh
 ssh "robot@${IP}" sudo umount /mnt
 
-hcloud volume detach planet
+hcloud volume detach planet || true
 
 hcloud server delete $SERVER
 

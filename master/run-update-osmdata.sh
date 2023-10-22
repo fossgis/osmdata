@@ -89,7 +89,7 @@ fi
 scp "robot@$IP:/mnt/data/planet/last-update" /data/new/
 ssh "robot@$IP" sudo umount /mnt
 
-hcloud volume detach planet
+hcloud volume detach planet || true
 
 hcloud server delete $SERVER
 

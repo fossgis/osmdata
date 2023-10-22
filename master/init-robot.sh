@@ -35,7 +35,7 @@ mkdir -p ~/log
 
 hcloud context create osmdata
 
-hcloud volume detach planet
+hcloud volume detach planet || true
 
 $MASTER/create-host-keys.sh
 

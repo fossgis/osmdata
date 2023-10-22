@@ -57,7 +57,7 @@ scp "robot@$IP:/tmp/anomalies/*" $RESULT/new
 ssh "robot@$IP" sudo umount /mnt
 sync
 
-hcloud volume detach planet
+hcloud volume detach planet || true
 
 hcloud server delete $SERVER
 

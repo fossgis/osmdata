@@ -41,7 +41,7 @@ rm -f $DATADIR/segments.dat $DBFILE.new
 
 set +e
 osmcoastline --verbose --overwrite --no-index \
-             $OUTPUT_RINGS \
+             "$OUTPUT_RINGS" \
              -o $DBFILE.new \
              --write-segments=$DATADIR/segments.dat \
              --max-points=0 --bbox-overlap=0 \
@@ -267,7 +267,7 @@ mkshape() {
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  Mercator projection (EPSG: 3857)\n  Extent: ($XMIN, $YMIN) - ($XMAX, $YMAX)\n  In geographic coordinates: $bbox"
     else
         local bbox
-        bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' $XMIN $YMIN $XMAX $YMAX)
+        bbox=$(printf '(%.3f, %.3f) - (%.3f, %.3f)' "$XMIN" "$YMIN" "$XMAX" "$YMAX")
         local LAYERS="\n\n$layer.shp:\n\n  $FCOUNT $GMTYPE features\n  WGS84 geographic coordinates (EPSG: 4326)\n  Extent: $bbox"
     fi
 

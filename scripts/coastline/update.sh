@@ -116,12 +116,20 @@ run_osmcoastline_lines() {
 
     rm -f "$DATADIR/$file.db.new"
 
+    set +e
     osmcoastline --verbose --overwrite --no-index \
                  --output-lines --output-polygons=none \
                  -o "$DATADIR/$file.db.new" \
                  "--srs=$srid" --max-points=1000 --bbox-overlap=0 \
-                 "$COASTLINES" \
-                 && true
+                 "$COASTLINES"
+
+    local EXIT_CODE=$?
+    set -e
+    echo "osmcoastline exit code: $EXIT_CODE"
+
+    if (( EXIT_CODE > 2 )); then
+        exit $EXIT_CODE
+    fi
 
     mv "$DATADIR/$file.db.new" "$DATADIR/$file.db"
 }
@@ -132,11 +140,19 @@ run_osmcoastline_polygons() {
 
     rm -f "$DATADIR/$file.db.new"
 
+    set +e
     osmcoastline --verbose --overwrite --no-index \
                  -o "$DATADIR/$file.db.new" \
                  "--srs=$srid" --max-points=0 --bbox-overlap=0 \
-                 "$COASTLINES" \
-                 && true
+                 "$COASTLINES"
+
+    local EXIT_CODE=$?
+    set -e
+    echo "osmcoastline exit code: $EXIT_CODE"
+
+    if (( EXIT_CODE > 2 )); then
+        exit $EXIT_CODE
+    fi
 
     mv "$DATADIR/$file.db.new" "$DATADIR/$file.db"
 }

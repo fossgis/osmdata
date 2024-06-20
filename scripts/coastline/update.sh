@@ -41,7 +41,7 @@ rm -f $DATADIR/segments.dat $DBFILE.new
 
 set +e
 osmcoastline --verbose --overwrite --no-index \
-             "$OUTPUT_RINGS" \
+             $OUTPUT_RINGS \
              -o $DBFILE.new \
              --write-segments=$DATADIR/segments.dat \
              --max-points=0 --bbox-overlap=0 \

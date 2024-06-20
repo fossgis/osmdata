@@ -29,8 +29,8 @@ echo "Running jobs: ${!jobs[*]}"
 
 SERVER=update-osmdata
 
-# cx31: 2 CPUs, 8 GB RAM, 80 GB disk
-STYPE=cx31
+# cx42: 8 CPUs, 16 GB RAM, 160 GB disk
+STYPE=cx42
 
 VOLID=$(hcloud volume describe -o json planet | jq .id)
 

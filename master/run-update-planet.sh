@@ -12,8 +12,8 @@ fi
 
 SERVER=update-planet
 
-# cx41: 4 CPUs, 16 GB RAM, 160 GB disk
-STYPE=cx41
+# cx41: 8 CPUs, 16 GB RAM, 160 GB disk
+STYPE=cx42
 
 VOLID=$(hcloud volume describe -o json planet | jq .id)
 

@@ -13,7 +13,8 @@ fi
 SERVER=update-planet
 
 # cx41: 8 CPUs, 16 GB RAM, 160 GB disk
-STYPE=cx42
+#STYPE=cx42
+STYPE=ccx23
 
 VOLID=$(hcloud volume describe -o json planet | jq .id)
 
@@ -28,7 +29,14 @@ hcloud server create \
     --user-data-from-file ~/users.yml \
     --user-data-from-file ~/ssh/keys.yml \
     --user-data-from-file - \
-    --volume planet
+    --start-after-create=false
+
+hcloud volume attach \
+    --automount \
+    --server $SERVER \
+    planet
+
+hcloud server poweron $SERVER
 
 IP=$(hcloud server ip $SERVER)
 
@@ -45,9 +53,8 @@ ssh "robot@${IP}" mkdir planet
 scp ~/osmdata/scripts/planet/* "robot@${IP}:planet/"
 
 ssh "robot@${IP}" planet/update.sh
-ssh "robot@${IP}" sudo umount /mnt
 
-hcloud volume detach planet || true
+hcloud volume detach planet
 
 hcloud server delete $SERVER
 

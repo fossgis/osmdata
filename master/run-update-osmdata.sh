@@ -30,7 +30,8 @@ echo "Running jobs: ${!jobs[*]}"
 SERVER=update-osmdata
 
 # cx42: 8 CPUs, 16 GB RAM, 160 GB disk
-STYPE=cx42
+#STYPE=cx42
+STYPE=ccx23
 
 VOLID=$(hcloud volume describe -o json planet | jq .id)
 
@@ -45,7 +46,14 @@ hcloud server create \
     --user-data-from-file ~/users.yml \
     --user-data-from-file ~/ssh/keys.yml \
     --user-data-from-file - \
-    --volume planet
+    --start-after-create=false
+
+hcloud volume attach \
+    --automount \
+    --server $SERVER \
+    planet
+
+hcloud server poweron $SERVER
 
 IP=$(hcloud server ip $SERVER)
 
@@ -87,9 +95,8 @@ if [[ -v jobs[icesheet] ]]; then
 fi
 
 scp "robot@$IP:/mnt/data/planet/last-update" /data/new/
-ssh "robot@$IP" sudo umount /mnt
 
-hcloud volume detach planet || true
+hcloud volume detach planet
 
 hcloud server delete $SERVER
 

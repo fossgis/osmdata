@@ -1,4 +1,11 @@
 
+This repository is archieved now.
+
+The website osmdata.openstreetmap.de ist now here:
+https://gitlab.fossgis.de/osmdata/osmdata-website
+
+Processing scripts are in the repo of the OSM server group @ FOSSGIS now.
+
 # OSMData
 
 The [OpenStreetMap project](https://www.openstreetmap.org/) collects an amazing
